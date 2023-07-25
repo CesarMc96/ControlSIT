@@ -1,0 +1,434 @@
+{
+	"info": {
+		"_postman_id": "7ae21237-0fac-4b28-90a0-b08f6e4723c6",
+		"name": "API SIT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28384449"
+	},
+	"item": [
+		{
+			"name": "Empleados",
+			"item": [
+				{
+					"name": "Buscar Empleado ID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idEmpleado\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/empleado/single_read.php?idEmpleado=2",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"empleado",
+								"single_read.php"
+							],
+							"query": [
+								{
+									"key": "idEmpleado",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Empleados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/empleado/read.php",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"empleado",
+								"read.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Equipos",
+			"item": [
+				{
+					"name": "Buscar Equipo ID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/equipo/single_read.php?idEquipo=2",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"equipo",
+								"single_read.php"
+							],
+							"query": [
+								{
+									"key": "idEquipo",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Monitores ",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/equipo/readMonitores.php?idEquipo=118",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"equipo",
+								"readMonitores.php"
+							],
+							"query": [
+								{
+									"key": "idEquipo",
+									"value": "118"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "IPS",
+			"item": [
+				{
+					"name": "Concentrado IP",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/concentrado/read.php",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"concentrado",
+								"read.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar IP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/concentrado/single_read.php?IP=172.29.59.8",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"concentrado",
+								"single_read.php"
+							],
+							"query": [
+								{
+									"key": "IP",
+									"value": "172.29.59.8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/concentrado/buscarUsuario.php?IP=172.29.59.8",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"concentrado",
+								"buscarUsuario.php"
+							],
+							"query": [
+								{
+									"key": "IP",
+									"value": "172.29.59.8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Usuario Externo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/concentrado/buscarUsuarioExterno.php?IP=172.29.59.10",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"concentrado",
+								"buscarUsuarioExterno.php"
+							],
+							"query": [
+								{
+									"key": "IP",
+									"value": "172.29.59.10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Usuario Externo Sin Maquina",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/concentrado/buscarUsuarioExternoSinMaquina.php?IP=172.29.59.12",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"concentrado",
+								"buscarUsuarioExternoSinMaquina.php"
+							],
+							"query": [
+								{
+									"key": "IP",
+									"value": "172.29.59.12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Equipo Por ID Empleado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/concentrado/buscarEquipo.php?Id_empleado=60447",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"concentrado",
+								"buscarEquipo.php"
+							],
+							"query": [
+								{
+									"key": "Id_empleado",
+									"value": "60447"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Telefonos",
+			"item": [
+				{
+					"name": "Obtener Informacion Telefonos ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/telefono/read.php",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"telefono",
+								"read.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Telefono",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idconcentradoTelefonos\": 151,\r\n    \"idEmpleado\": 0,\r\n    \"Comentarios\": \"Video Conferencia CNPT SMN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/telefono/update.php",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"telefono",
+								"update.php"
+							],
+							"query": [
+								{
+									"key": "idconcentradoTelefonos",
+									"value": "155",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Telefono",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/telefono/single_read.php?idconcentradoTelefonos=154",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"telefono",
+								"single_read.php"
+							],
+							"query": [
+								{
+									"key": "idconcentradoTelefonos",
+									"value": "154"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

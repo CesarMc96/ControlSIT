@@ -1,0 +1,17 @@
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #ffffff;
+    opacity: 1;
+}
+
+.form-control {
+    color: #000000;
+}
+
+.menu-link {
+    cursor: pointer;
+}
+
+div:where(.swal2-container).swal2-top, div:where(.swal2-container).swal2-center, div:where(.swal2-container).swal2-bottom {
+    z-index: 99999;
+}

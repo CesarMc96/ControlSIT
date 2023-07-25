@@ -1,0 +1,10 @@
+<script src="libs/jquery/jquery.js"></script>
+<script src="libs/popper/popper.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/main.js"></script>
+<script src="js/pages-account-settings-account.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="js/controlsit.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
