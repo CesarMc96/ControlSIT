@@ -24,7 +24,6 @@ if ($itemCount > 0) {
             "Nombre_persona" => $Nombre_persona,
             "Usuario_Conagua" => $Usuario_Conagua,
             "Numero_Extension" => $Numero_Extension,
-            "Numero_did" => $Numero_did,
             "Correo_Conagua" => $Correo_Conagua,
             "CURP" => $CURP,
             "NombrePuesto" => $NombrePuesto,

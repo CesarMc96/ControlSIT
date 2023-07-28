@@ -1,4 +1,5 @@
 <script src="libs/jquery/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="libs/popper/popper.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="libs/perfect-scrollbar/perfect-scrollbar.js"></script>

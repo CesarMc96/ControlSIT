@@ -18,7 +18,7 @@ $item->Id_empleado = isset($_GET['Id_empleado']) ? $_GET['Id_empleado'] : die();
 $stmt = $item->getIPEquipo();
 $itemCount = $stmt->rowCount();
 
-if ($itemCount > 0) {
+if ($itemCount == 1) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $e = array(
@@ -33,6 +33,23 @@ if ($itemCount > 0) {
         );
     }
     echo json_encode($e);
+} else if ($itemCount > 1) {
+    $employeeArr = array();
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        extract($row);
+        $e = array(
+            "IP" => $IP,
+            "Host_Name" => $Host_Name,
+            "Numero_Serie" => $Numero_Serie,
+            "Id_empleado" => $Id_empleado,
+            "Equipo" => $Equipo,
+            "Marca" => $Marca,
+            "Modelo" => $Modelo,
+            "UPS_Serie" => $UPS_Serie
+        );
+        array_push($employeeArr, $e);
+    }
+    echo json_encode($employeeArr);
 } else {
     http_response_code(404);
     echo json_encode(

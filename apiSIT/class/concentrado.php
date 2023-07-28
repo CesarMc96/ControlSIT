@@ -69,7 +69,8 @@ class Concentrado {
         left join dispositivo d on d.idDispositivo= e.idDispositivo
         left join empleado emp on emp.idEmpleado = con.idUsuario
         left join persona p on p.idPersona = emp.idPersona
-        left join usuarioconagua uc on uc.idUsuarioConagua= emp.idUsuarioConagua WHERE Id_empleado = ? LIMIT 0,1";
+        left join usuarioconagua uc on uc.idUsuarioConagua= emp.idUsuarioConagua WHERE Id_empleado = ?";
+        
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->bindParam(1, $this->Id_empleado);
         $stmt->execute();

@@ -10,5 +10,6 @@
 <link rel="stylesheet" href="libs/perfect-scrollbar/perfect-scrollbar.css" />
 <link rel="stylesheet" href="css/page-auth.css" />
 <link rel="stylesheet" href="css/page-misc.css" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/controlSit.css" />
 <script src="js/helpers.js"></script>

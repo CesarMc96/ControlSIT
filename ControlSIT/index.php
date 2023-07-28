@@ -1,4 +1,8 @@
 <?php
+header("Cache-Control: no-cache, must-revalidate");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 @session_start();
 if (!$_SESSION['autentica']) {
     header('location: login.php');
@@ -7,6 +11,7 @@ if (!$_SESSION['autentica']) {
     $nombrePersona = $_SESSION["Nombre_persona"];
     $usuarioConagua = $_SESSION["Usuario_Conagua"];
     $correoConagua = $_SESSION["Correo_Conagua"];
+    $idUsuario = $_SESSION["idUsuario"];
 
     $usuariosDatos = [];
     $conexion_bd = new PDO("mysql:host=172.29.60.126;dbname=tics;charset=utf8; port=3306", "Cesar", "cesartic");
@@ -23,7 +28,7 @@ if (!$_SESSION['autentica']) {
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-                <div class="app-brand demo">
+                <div id="logoMenuLateral" class="app-brand demo">
                     <a href="index.php" class="app-brand-link">
                         <span class="app-brand-logo demo">
                             <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -61,10 +66,6 @@ if (!$_SESSION['autentica']) {
                         </span>
                         <span class="app-brand-text demo menu-text fw-bolder ms-2">Control SIT</span>
                     </a>
-
-                    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-                        <i class="bx bx-chevron-left bx-sm align-middle"></i>
-                    </a>
                 </div>
 
                 <div class="menu-inner-shadow"></div>
@@ -78,15 +79,16 @@ if (!$_SESSION['autentica']) {
                     </li>
 
                     <li class="menu-header small text-uppercase"></li>
+
                     <li class="menu-item" id="menuUsuarios">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <i class="menu-icon tf-icons bx bx-user"></i>
                             <div data-i18n="Account Settings">Usuarios</div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item" id="buscarUsuario">
                                 <a class="menu-link" onclick="cambiarBotones(2);">
-                                    <div data-i18n="Account">Buscar Usuario</div>
+                                    <div data-i18n="Account">Buscar </div>
                                 </a>
                             </li>
                             <li class="menu-item" id="actualizarUsuario">
@@ -94,12 +96,17 @@ if (!$_SESSION['autentica']) {
                                     <div data-i18n="Notifications">Actualizar </div>
                                 </a>
                             </li>
+                            <li class="menu-item" id="agregarUsuario">
+                                <a class="menu-link" onclick="cambiarBotones(7);">
+                                    <div data-i18n="Notifications">Agregar </div>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
                     <li class="menu-item" id="menuEquipos">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                            <i class="menu-icon tf-icons bx bx-laptop"></i>
                             <div data-i18n="Authentications">Equipos</div>
                         </a>
                         <ul class="menu-sub">
@@ -120,7 +127,7 @@ if (!$_SESSION['autentica']) {
 
                     <li class="menu-item" id="menuIPs">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                            <i class="menu-icon tf-icons bx bx-broadcast"></i>
                             <div data-i18n="Misc">IP</div>
                         </a>
                         <ul class="menu-sub">
@@ -129,28 +136,26 @@ if (!$_SESSION['autentica']) {
                                     <div data-i18n="Error">Buscar</div>
                                 </a>
                             </li>
-                            <!--
                             <li class="menu-item">
-                                <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                                    <div data-i18n="Basic">Actualizar</div>
+                                <a class="menu-link" onclick="cambiarBotones(8);">
+                                    <div data-i18n="Basic">Agregar</div>
                                 </a>
                             </li>
-                            -->
                         </ul>
                     </li>
 
                     <li class="menu-item" id="menuTelefonos">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-collection"></i>
+                            <i class="menu-icon tf-icons bx bx-phone-call"></i>
                             <div data-i18n="Account Settings">Teléfonos</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item" id="buscarUsuario">
+                            <li class="menu-item" id="buscarTelefono">
                                 <a class="menu-link" onclick="cambiarBotones(6);">
                                     <div data-i18n="Account">Buscar Teléfono</div>
                                 </a>
                             </li>
-                            <li class="menu-item" id="actualizarUsuario">
+                            <li class="menu-item" id="actualizarTelefono">
                                 <a class="menu-link" onclick="cambiarBotones(7);">
                                     <div data-i18n="Notifications">Actualizar </div>
                                 </a>
@@ -158,197 +163,9 @@ if (!$_SESSION['autentica']) {
                         </ul>
                     </li>
 
+                    <li class="menu-header small text-uppercase"></li>
 
-                    <!-- Components -->
-                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>
-                    <!-- Cards -->
-                    <li class="menu-item">
-                        <a href="cards-basic.html" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-collection"></i>
-                            <div data-i18n="Basic">Cards</div>
-                        </a>
-                    </li>
-                    <!-- User interface -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0)" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-box"></i>
-                            <div data-i18n="User interface">User interface</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="ui-accordion.html" class="menu-link">
-                                    <div data-i18n="Accordion">Accordion</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-alerts.html" class="menu-link">
-                                    <div data-i18n="Alerts">Alerts</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-badges.html" class="menu-link">
-                                    <div data-i18n="Badges">Badges</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-buttons.html" class="menu-link">
-                                    <div data-i18n="Buttons">Buttons</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-carousel.html" class="menu-link">
-                                    <div data-i18n="Carousel">Carousel</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-collapse.html" class="menu-link">
-                                    <div data-i18n="Collapse">Collapse</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-dropdowns.html" class="menu-link">
-                                    <div data-i18n="Dropdowns">Dropdowns</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-footer.html" class="menu-link">
-                                    <div data-i18n="Footer">Footer</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-list-groups.html" class="menu-link">
-                                    <div data-i18n="List Groups">List groups</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-modals.html" class="menu-link">
-                                    <div data-i18n="Modals">Modals</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-navbar.html" class="menu-link">
-                                    <div data-i18n="Navbar">Navbar</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-offcanvas.html" class="menu-link">
-                                    <div data-i18n="Offcanvas">Offcanvas</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-pagination-breadcrumbs.html" class="menu-link">
-                                    <div data-i18n="Pagination &amp; Breadcrumbs">Pagination &amp; Breadcrumbs</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-progress.html" class="menu-link">
-                                    <div data-i18n="Progress">Progress</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-spinners.html" class="menu-link">
-                                    <div data-i18n="Spinners">Spinners</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-tabs-pills.html" class="menu-link">
-                                    <div data-i18n="Tabs &amp; Pills">Tabs &amp; Pills</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-toasts.html" class="menu-link">
-                                    <div data-i18n="Toasts">Toasts</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-tooltips-popovers.html" class="menu-link">
-                                    <div data-i18n="Tooltips & Popovers">Tooltips &amp; popovers</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-typography.html" class="menu-link">
-                                    <div data-i18n="Typography">Typography</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Extended components -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0)" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-copy"></i>
-                            <div data-i18n="Extended UI">Extended UI</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="extended-ui-perfect-scrollbar.html" class="menu-link">
-                                    <div data-i18n="Perfect Scrollbar">Perfect scrollbar</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="extended-ui-text-divider.html" class="menu-link">
-                                    <div data-i18n="Text Divider">Text Divider</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-item">
-                        <a href="icons-boxicons.html" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-crown"></i>
-                            <div data-i18n="Boxicons">Boxicons</div>
-                        </a>
-                    </li>
-
-                    <!-- Forms & Tables -->
-                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
-                    <!-- Forms -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Form Elements">Form Elements</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="forms-basic-inputs.html" class="menu-link">
-                                    <div data-i18n="Basic Inputs">Basic Inputs</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="forms-input-groups.html" class="menu-link">
-                                    <div data-i18n="Input groups">Input groups</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Form Layouts">Form Layouts</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="form-layouts-vertical.html" class="menu-link">
-                                    <div data-i18n="Vertical Form">Vertical Form</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="form-layouts-horizontal.html" class="menu-link">
-                                    <div data-i18n="Horizontal Form">Horizontal Form</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- Tables -->
-                    <li class="menu-item">
-                        <a href="tables-basic.html" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-table"></i>
-                            <div data-i18n="Tables">Tables</div>
-                        </a>
-                    </li>
-
-                    <li class="menu-header small text-uppercase"><span class="menu-header-text"></span></li>
-                    <li class="menu-item">
+                    <li class="menu-item" id="menuDocumentacion">
                         <a href="mantenimiento.php" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-file"></i>
                             <div data-i18n="Documentation">Documentación</div>
@@ -356,18 +173,13 @@ if (!$_SESSION['autentica']) {
                     </li>
                 </ul>
             </aside>
+
             <div class="layout-page">
                 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
-                    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-                        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                            <i class="bx bx-menu bx-sm"></i>
-                        </a>
-                    </div>
-
                     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                <a class="nav-link dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-emoji-sunglasses" viewBox="0 0 16 16">
                                             <path d="M4.968 9.75a.5.5 0 1 0-.866.5A4.498 4.498 0 0 0 8 12.5a4.5 4.5 0 0 0 3.898-2.25.5.5 0 1 0-.866-.5A3.498 3.498 0 0 1 8 11.5a3.498 3.498 0 0 1-3.032-1.75zM7 5.116V5a1 1 0 0 0-1-1H3.28a1 1 0 0 0-.97 1.243l.311 1.242A2 2 0 0 0 4.561 8H5a2 2 0 0 0 1.994-1.839A2.99 2.99 0 0 1 8 6c.393 0 .74.064 1.006.161A2 2 0 0 0 11 8h.438a2 2 0 0 0 1.94-1.515l.311-1.242A1 1 0 0 0 12.72 4H10a1 1 0 0 0-1 1v.116A4.22 4.22 0 0 0 8 5c-.35 0-.69.04-1 .116z" />
@@ -377,11 +189,11 @@ if (!$_SESSION['autentica']) {
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item">
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-emoji-sunglasses" viewBox="0 0 16 16">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-emoji-sunglasses" viewBox="0 0 16 16">
                                                             <path d="M4.968 9.75a.5.5 0 1 0-.866.5A4.498 4.498 0 0 0 8 12.5a4.5 4.5 0 0 0 3.898-2.25.5.5 0 1 0-.866-.5A3.498 3.498 0 0 1 8 11.5a3.498 3.498 0 0 1-3.032-1.75zM7 5.116V5a1 1 0 0 0-1-1H3.28a1 1 0 0 0-.97 1.243l.311 1.242A2 2 0 0 0 4.561 8H5a2 2 0 0 0 1.994-1.839A2.99 2.99 0 0 1 8 6c.393 0 .74.064 1.006.161A2 2 0 0 0 11 8h.438a2 2 0 0 0 1.94-1.515l.311-1.242A1 1 0 0 0 12.72 4H10a1 1 0 0 0-1 1v.116A4.22 4.22 0 0 0 8 5c-.35 0-.69.04-1 .116z" />
                                                             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-1 0A7 7 0 1 0 1 8a7 7 0 0 0 14 0z" />
                                                         </svg>
@@ -398,9 +210,18 @@ if (!$_SESSION['autentica']) {
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
+                                        <a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalConfiguracion">
+                                            <i class="bx bx-cog me-2"></i>
+                                            <span class="align-middle">Configuración</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
                                         <a class="dropdown-item" href="logout.php">
                                             <i class="bx bx-power-off me-2"></i>
-                                            <span class="align-middle">Log Out</span>
+                                            <span class="align-middle">Cerrar sesión</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -408,6 +229,41 @@ if (!$_SESSION['autentica']) {
                         </ul>
                     </div>
                 </nav>
+
+                <div class="modal fade" id="modalConfiguracion">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h4 class="fw-bold">Configuración</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <h5><label><?php echo $nombrePersona ?></label></h5>
+                                    <label class="form-label">Usuario</label>
+                                    <label><?php echo $usuarioConagua ?></label>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Correo Electronico</label>
+                                        <input class="form-control" type="text" value="<?php echo $correoConagua ?>" name="email" readonly />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer" style="width: 100%;">
+                                <button type="button" class="btn btn-light" style="padding: 0%;" onclick="mostarEquipoUsuario();"> Equipo &nbsp;
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                    </svg>
+                                </button>
+                                <div id="pruebaEspacio" style="width: 68%;"></div>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="limpiarModalEquipoUsuario();">Cerrar</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper" id="mdlBuscarUsuario" style="display: none;">
@@ -425,7 +281,6 @@ if (!$_SESSION['autentica']) {
                                                         <th>Nombre</th>
                                                         <th>Usuario</th>
                                                         <th>Correo</th>
-                                                        <th>Extension</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -433,18 +288,14 @@ if (!$_SESSION['autentica']) {
                                                     <?php
                                                     $link = mysqli_connect("172.29.60.126:3306", "Cesar", "cesartic");
                                                     mysqli_select_db($link, "tics");
-                                                    $documentos = mysqli_query($link, "SELECT e.idEmpleado, p.Nombre_persona, uc.Usuario_Conagua, uc.Numero_Extension, uc.Correo_Conagua from empleado e
-                                                    inner join persona p on p.idPersona = e.idPersona
+                                                    $documentos = mysqli_query($link, "SELECT e.idEmpleado, p.Nombre_persona, uc.Usuario_Conagua, uc.Correo_Conagua from empleado e
+                                                    inner join persona p on p.idPersona = e.idPersona 
                                                     inner join usuarioconagua uc on uc.idUsuarioConagua= e.idUsuarioConagua
-                                                    inner join puesto pu on pu.idPuesto= e.idPuesto
-                                                    inner join area a on a.idArea = e.idArea
-                                                    inner join gerencia g on g.idGerencia= e.idGerencia
-                                                    order by e.idEmpleado;");
+                                                    order by p.Nombre_persona;");
                                                     while ($rows = mysqli_fetch_array($documentos)) {
                                                         echo '<tr>';
                                                         echo '<td> ' . '<i class="fab fa-angular fa-lg text-danger me-3"></i><strong>' . $rows[1] . '</strong>' . '</td>';
                                                         echo '<td> ' . $rows[2] . '</td>';
-                                                        echo '<td> ' . $rows[4] . '</td>';
                                                         echo '<td> ' . $rows[3] . '</td>';
                                                         echo '<td> 
                                                         <a id="pruebaA" onclick="mostrarTodoUsuario(' . $rows[0] . ')" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#myModal"> 
@@ -493,7 +344,7 @@ if (!$_SESSION['autentica']) {
                                                                 <label class="form-label" for="extension">Extensión</label>
                                                                 <input type="text" id="extension" name="extension" class="form-control" readonly />
                                                             </div>
-                                                            <div class="mb-3 col-md-6">
+                                                            <div class="mb-3 col-md-6" style="display: none;" id="divDidU">
                                                                 <label for="did" class="form-label"># DID</label>
                                                                 <input type="text" class="form-control" id="did" name="did" />
                                                             </div>
@@ -513,7 +364,7 @@ if (!$_SESSION['autentica']) {
                                                     </div>
 
                                                     <div class="modal-body" id="modlEquipoUsuario" style="display: none;">
-                                                        <div class="row" id="mdlEquiMon">
+                                                        <div class="row">
                                                             <div class="mb-3 col-md-6">
                                                                 <label for="equipoU" class="form-label">Nombre</label>
                                                                 <input class="form-control" type="text" name="equipoU" id="equipoU" readonly />
@@ -535,12 +386,38 @@ if (!$_SESSION['autentica']) {
                                                                 <input type="text" id="numSerieU" name="numSerieU" class="form-control" readonly />
                                                             </div>
                                                             <div class="mb-3 col-md-6">
-                                                                <label class="form-label" for="upsU">UPS Serie</label>
-                                                                <input type="text" id="upsU" name="upsU" class="form-control" readonly />
-                                                            </div>
-                                                            <div class="mb-3 col-md-6">
                                                                 <label class="form-label" for="IPU">IP</label>
                                                                 <input type="text" id="IPU" name="IPU" class="form-control" readonly />
+                                                            </div>
+                                                        </div>
+
+                                                        <div style="display: none;" id="divEquipoDos">
+                                                            <hr>
+                                                            <div class="row">
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label for="equipoU2" class="form-label">Nombre</label>
+                                                                    <input class="form-control" type="text" name="equipoU2" id="equipoU2" readonly />
+                                                                </div>
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label for="marcaU2" class="form-label">Marca</label>
+                                                                    <input class="form-control" type="text" name="marcaU2" id="marcaU2" readonly />
+                                                                </div>
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label for="modeloU2" class="form-label">Modelo</label>
+                                                                    <input class="form-control" type="text" id="modeloU2" name="modeloU2" readonly />
+                                                                </div>
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label for="hostnameU2" class="form-label">Host Name</label>
+                                                                    <input class="form-control" type="text" id="hostnameU2" name="hostnameU2" readonly />
+                                                                </div>
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label" for="numSerieU2">Numero Serie</label>
+                                                                    <input type="text" id="numSerieU2" name="numSerieU2" class="form-control" readonly />
+                                                                </div>
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label" for="IPU">IP</label>
+                                                                    <input type="text" id="IPU2" name="IPU2" class="form-control" readonly />
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -599,9 +476,15 @@ if (!$_SESSION['autentica']) {
                                             </div>
                                         </div>
                                         <div class="row">
+                                            <div class="mb-3 col-md-6" style="display: none;">
+                                                <input type="text" id="idUC" />
+                                            </div>
+                                            <div class="mb-3 col-md-6" style="display: none;">
+                                                <input type="text" id="idEmC" />
+                                            </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="idEmpleadoA" class="form-label">ID Empleado</label>
-                                                <input type="text" class="form-control" id="idEmpleadoA" name="idEmpleadoA" readonly style="color: gray;" />
+                                                <input type="number" class="form-control" id="idEmpleadoA" name="idEmpleadoA" style="color: black;" />
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="curpA" class="form-label">CURP</label>
@@ -609,19 +492,11 @@ if (!$_SESSION['autentica']) {
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="usuarioA" class="form-label">Usuario</label>
-                                                <input class="form-control" type="text" id="usuarioA" name="usuarioA" />
+                                                <input class="form-control" type="text" id="usuarioA" name="usuarioA" style="color: black;" />
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="emailA" class="form-label">Correo Electronico</label>
-                                                <input class="form-control" type="text" id="emailA" name="emailA" />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label" for="extensionA">Extensión</label>
-                                                <input type="text" id="extensionA" name="extensionA" class="form-control" />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label for="didA" class="form-label"># DID</label>
-                                                <input type="text" class="form-control" id="didA" name="didA" />
+                                                <input class="form-control" type="text" id="emailA" name="emailA" style="color: black;" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="puestoA">Puesto</label>
@@ -668,9 +543,96 @@ if (!$_SESSION['autentica']) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <div class="mt-2" id="botonesActualizar" style="display: none;">
+                                            <div class="mt-2" id="botonesActualizar" style="display: none; text-align: end;">
                                                 <button type="submit" class="btn btn-primary me-2" onclick="actualizarUsuarioBD();">Guardar</button>
-                                                <button type="reset" class="btn btn-outline-secondary">Limpiar</button>
+                                                <button type="reset" class="btn btn-outline-secondary" onclick="revertirUsuario();">Revetir</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-backdrop fade"></div>
+                </div>
+
+                <div class="content-wrapper" id="mdlAgregarUsuario" style="display: none;">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Agregar /</span> Usuarios</h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card mb-4">
+                                    <hr class="my-0" />
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label for="nombreCompletoNew" class="form-label">Nombre</label>
+                                                <input class="form-control" type="text" id="nombreCompletoNew" name="nombreCompletoNew" />
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="curpNew" class="form-label">CURP</label>
+                                                <input class="form-control" type="text" name="curpNew" id="curpNew" />
+                                            </div>
+                                            <div class="mb-3 col-md-3">
+                                                <label for="idEmpleadoNew" class="form-label">ID Empleado</label>
+                                                <input type="number" class="form-control" id="idEmpleadoNew" name="idEmpleadoNew" style="color: black;" />
+                                            </div>
+                                            <div class="mb-3 col-md-3">
+                                                <label for="usuarioNew" class="form-label">Usuario</label>
+                                                <input class="form-control" type="text" id="usuarioNew" name="usuarioNew" />
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="emailNew" class="form-label">Correo Electronico</label>
+                                                <input class="form-control" type="text" id="emailNew" name="emailNew" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="puestoNew">Puesto</label>
+                                                <select id="puestoNew" class="select2 form-select" style="color: black;">
+                                                    <option value="">Seleccione:</option>
+                                                    <?php
+                                                    $query = $conexion_bd->prepare("SELECT * FROM puesto");
+                                                    $query->execute();
+                                                    $data = $query->fetchAll();
+
+                                                    foreach ($data as $valores) :
+                                                        echo '<option value="' . $valores[0] . '">' . $valores[1] . '</option>';
+                                                    endforeach;
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="areaNew" class="form-label">Area</label>
+                                                <select id="areaNew" class="select2 form-select" style="color: black;">
+                                                    <option value="">Seleccione:</option>
+                                                    <?php
+                                                    $query = $conexion_bd->prepare("SELECT * FROM area");
+                                                    $query->execute();
+                                                    $data = $query->fetchAll();
+
+                                                    foreach ($data as $valores) :
+                                                        echo '<option value="' . $valores[0] . '">' . $valores[1] . '</option>';
+                                                    endforeach;
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="gerenciaNew" class="form-label">Gerencia</label>
+                                                <select id="gerenciaNew" class="select2 form-select" style="color: black;">
+                                                    <option value="">Seleccione:</option>
+                                                    <?php
+                                                    $query = $conexion_bd->prepare("SELECT * FROM gerencia");
+                                                    $query->execute();
+                                                    $data = $query->fetchAll();
+
+                                                    foreach ($data as $valores) :
+                                                        echo '<option value="' . $valores[0] . '">' . $valores[1] . '</option>';
+                                                    endforeach;
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="mt-2" id="botonesAgregar" style="text-align: end;">
+                                                <button type="submit" class="btn btn-primary me-2" onclick="guardarUsuarioBD();">Guardar</button>
+                                                <button type="reset" class="btn btn-outline-secondary" onclick="limpiarUsuarioNew();">Limpiar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -707,7 +669,10 @@ if (!$_SESSION['autentica']) {
                                                     $documentos = mysqli_query($link, "SELECT e.idEquipo, td.Nombre, td.Descripcion, de.Marca, de.Modelo, d.Host_Name, d.Numero_Serie, UPS_Serie from equipo e
                                                     inner join tipodispositivo td on td.idTipoDispositivo= e.idTipoDispositivo
                                                     inner join datosextrasdispositivo de on de.idDatosDispositivo= e.idDatosDispositivo
-                                                    inner join dispositivo d on d.idDispositivo= e.idDispositivo;");
+                                                    inner join dispositivo d on d.idDispositivo= e.idDispositivo
+                                                    where e.idTipoDispositivo != 20 and e.idTipoDispositivo != 16 and e.idTipoDispositivo !=17 
+                                                    and e.idTipoDispositivo !=18 and e.idTipoDispositivo !=19 and e.idTipoDispositivo !=9 
+                                                    and e.idTipoDispositivo !=8 and e.idTipoDispositivo !=7 and e.idTipoDispositivo !=13;");
                                                     while ($rows = mysqli_fetch_array($documentos)) {
                                                         echo '<tr>';
                                                         echo '<td> ' . '<i class="fab fa-angular fa-lg text-danger me-3"></i><strong>' . $rows[1] . '</strong>' . '</td>';
@@ -763,7 +728,6 @@ if (!$_SESSION['autentica']) {
                                                             </div>
                                                         </div>
                                                     </div>
-
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
@@ -866,7 +830,105 @@ if (!$_SESSION['autentica']) {
                     <div class="content-backdrop fade"></div>
                 </div>
 
-                <div class="content-wrapper" id="mdlBuscarTelefono" style="display: block;">
+                <div class="content-wrapper" id="mdlAgregarIPUser" style="display: block;">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Agregar /</span> IP</h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Usuario</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="pages-account-settings-notifications.html"><i class="bx bx-printer me-1"></i> Impresora</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="pages-account-settings-connections.html"><i class="bx bx-data me-1"></i> Servidor</a>
+                                    </li>
+                                </ul>
+                                <div class="card mb-4">
+                                    <hr class="my-0" />
+
+                                    <div class="card-body" id="cardUsuario" style="display: block;">
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label for="nombreCompletoIPNew" class="form-label">Nombre Usuario</label>
+                                                <select id="nombreCompletoIPNew" class="select2 form-select" style="color: black;">
+                                                    <option value="">Seleccione:</option>
+                                                    <?php
+                                                    $query = $conexion_bd->prepare("SELECT e.idEmpleado, p.Nombre_persona from empleado e
+                                                    inner join persona p on p.idPersona = e.idPersona
+                                                    order by p.Nombre_persona;");
+                                                    $query->execute();
+                                                    $data = $query->fetchAll();
+
+                                                    foreach ($data as $valores) :
+                                                        echo '<option value="' . $valores[0] . '">' . $valores[1] . '</option>';
+                                                        array_push($usuariosDatos, $valores);
+                                                    endforeach;
+
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="hostEquipoIpNew" class="form-label">Host Name Equipo</label>
+                                                <select id="hostEquipoIpNew" class="select2 form-select" style="color: black;">
+                                                    <option value="">Seleccione:</option>
+                                                    <?php
+                                                    $query = $conexion_bd->prepare("SELECT distinct e.idEquipo, eq.idConcentrado, d.Host_Name from equipo e
+                                                    inner join dispositivo d on d.idDispositivo= e.idDispositivo
+                                                    left join concentrado eq on eq.equipoExt = e.idEquipo
+                                                    where d.Host_Name is not null and eq.idConcentrado is null;");
+                                                    $query->execute();
+                                                    $data = $query->fetchAll();
+
+                                                    foreach ($data as $valores) :
+                                                        echo '<option value="' . $valores[0] . '">' . $valores[2] . '</option>';
+                                                        array_push($usuariosDatos, $valores);
+                                                    endforeach;
+
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="nodoRedIPNew" class="form-label">Nodo red</label>
+                                                <input class="form-control" type="text" id="nodoRedIPNew" name="nodoRedIPNew" />
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="vlanIPNew" class="form-label">VLAN</label>
+                                                <input class="form-control" type="text" name="vlanIPNew" id="vlanIPNew" />
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="puertoIPNew" class="form-label">Puerto</label>
+                                                <input class="form-control" type="text" id="puertoIPNew" name="puertoIPNew" />
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="switchIPNew" class="form-label">Switch</label>
+                                                <input type="text" class="form-control" id="switchIPNew" name="switchIPNew">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="rackIPNew">Rack</label>
+                                                <input class="form-control" type="text" name="rackIPNew" id="rackIPNew" />
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="comentarioIPNew" class="form-label">Comentario</label>
+                                                <input type="text" class="form-control" id="comentarioIPNew" name="comentarioIPNew" />
+                                            </div>
+
+                                            <div class="mt-2" id="botonesAgregar" style="text-align: end;">
+                                                <button type="submit" class="btn btn-primary me-2" onclick="guardarUsuarioBD();">Guardar</button>
+                                                <button type="reset" class="btn btn-outline-secondary" onclick="limpiarUsuarioNew();">Limpiar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-backdrop fade"></div>
+                </div>
+
+                <div class="content-wrapper" id="mdlBuscarTelefono" style="display: none;">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Buscar /</span> Teléfonos</h4>
                         <div class="row">
@@ -934,7 +996,7 @@ if (!$_SESSION['autentica']) {
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="mb-3 col-md-6" style="display: none;">
-                                                                <input type="text"id="idconcentradoTelefonos"  />
+                                                                <input type="text" id="idconcentradoTelefonos" />
                                                             </div>
                                                             <div class="mb-3 col-md-6">
                                                                 <label for="modeloTel" class="form-label">Modelo</label>

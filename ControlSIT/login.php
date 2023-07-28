@@ -58,6 +58,7 @@ $_SESSION["pagina"] = "login";
                                         if ($nmyclave != 0) {
                                             session_start();
                                             $_SESSION["autentica"] = "SIP";
+                                            $_SESSION["idUsuario"] = $row[0];
                                             $_SESSION["Nombre_persona"] = $row[2];
                                             $_SESSION["Usuario_Conagua"] = $row[3];
                                             $_SESSION["Correo_Conagua"] = $row[4];
