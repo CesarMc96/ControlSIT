@@ -76,4 +76,40 @@ class Concentrado {
         $stmt->execute();
         return $stmt;
     }
+
+    public function crearIP() {
+        $sqlQuery = "INSERT INTO concentrado SET IP=:IP, Nodo_red=:Nodo_red, equipoExt=:equipoExt, idUsuario=:idUsuario, idResguardante=:idResguardante, VLAN=:VLAN, Puerto_Switch=:Puerto_Switch, Switch=:Switch, Rack=:Rack, Comentario=:Comentario";
+
+        $stmt = $this->conn->prepare($sqlQuery);
+        $this->IP = htmlspecialchars(strip_tags($this->IP));
+        $this->Nodo_red = htmlspecialchars(strip_tags($this->Nodo_red));
+        $this->equipoExt = htmlspecialchars(strip_tags($this->equipoExt));
+        $this->idUsuario = htmlspecialchars(strip_tags($this->idUsuario));
+        $this->idResguardante = htmlspecialchars(strip_tags($this->idResguardante));
+        $this->VLAN = htmlspecialchars(strip_tags($this->VLAN));
+        $this->Puerto_Switch = htmlspecialchars(strip_tags($this->Puerto_Switch));
+        $this->Switch = htmlspecialchars(strip_tags($this->Switch));
+        $this->Rack = htmlspecialchars(strip_tags($this->Rack));
+        $this->Comentario = htmlspecialchars(strip_tags($this->Comentario));
+
+        $stmt->bindParam(":IP", $this->IP);
+        $stmt->bindParam(":Nodo_red", $this->Nodo_red);
+        $stmt->bindParam(":equipoExt", $this->equipoExt);
+        $stmt->bindParam(":idUsuario", $this->idUsuario);
+        $stmt->bindParam(":idResguardante", $this->idResguardante);
+        $stmt->bindParam(":VLAN", $this->VLAN);
+        $stmt->bindParam(":Puerto_Switch", $this->Puerto_Switch);
+        $stmt->bindParam(":Switch", $this->Switch);
+        $stmt->bindParam(":Rack", $this->Rack);
+        $stmt->bindParam(":Comentario", $this->Comentario);
+
+        if($this->Comentario == ''){
+            $this->Comentario = null;
+        }
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -1,3 +1,25 @@
+let userAll = [], nombreAll = [], ipAll = [];
+
+window.addEventListener('load', function () {
+	console.log('La página ha terminado de cargarse!!');
+
+	$.ajax({
+		url: 'http://172.29.60.126/SIT/apiSIT/api/concentrado/read.php',
+		type: 'GET',
+		async: false,
+		dataType: 'text',
+		success: function (response) {
+			var parsedJson = JSON.parse(response);
+
+			for (let index = 0; index < parsedJson.length; index++) {
+				ipAll.push(parsedJson[index].IP);
+			}
+		},
+		error: function (error) {
+			console.log("No es posible completar la operación, intentarlo mas tarde.");
+		}
+	});
+});
 
 function cambiarBotones(opcion) {
 	switch (opcion) {
@@ -352,101 +374,6 @@ function actualizarTelefono() {
 	});
 }
 
-/*IP*/
-$(buscarIp).keyup(function (event) {
-	if (event.which === 13) {
-		limpiarIP();
-		$.ajax({
-			type: "POST",
-			url: "http://172.29.60.126/SIT/apiSIT/api/concentrado/single_read.php?IP=" + document.getElementById("buscarIp").value,
-			async: false,
-			success: function (response) {
-				document.getElementById("ipEncontrada").innerHTML = response.IP;
-				document.getElementById("nodoRed").value = response.Nodo_red;
-				document.getElementById("vlan").value = response.VLAN;
-				document.getElementById("puerto").value = response.Puerto_Switch;
-				document.getElementById("switch").value = response.Switch;
-				document.getElementById("rack").value = response.Rack;
-				document.getElementById("comentario").value = response.Comentario;
-				document.getElementById("mdlTitle").style.textAlign = "left";
-				document.getElementById("cardRed").style.display = "block";
-				document.getElementById("cardUsuario").style.display = "block";
-
-				$.ajax({
-					type: "POST",
-					url: "http://172.29.60.126/SIT/apiSIT/api/concentrado/buscarUsuario.php?IP=" + document.getElementById("buscarIp").value,
-					async: false,
-					success: function (response) {
-						document.getElementById("nomUsuarioIP").value = response.Nombre_persona;
-						document.getElementById("userConIP").value = response.Usuario_Conagua;
-						document.getElementById("empID").value = response.Id_empleado;
-						document.getElementById("hostNameIP").value = response.Host_Name;
-						document.getElementById("numSerieID").value = response.Numero_Serie;
-						document.getElementById("equipoIP").value = response.Equipo;
-						document.getElementById("buscarIp").value = "";
-
-						divUsuarioIp();
-					}
-				});
-			},
-			error: function (err) {
-				console.log(err);
-				document.getElementById("ipEncontrada").innerHTML = "La IP ingresada esta libre.";
-				document.getElementById("mdlTitle").style.textAlign = "center";
-				document.getElementById("cardUsuario").style.display = "block";
-				divUsuarioIp();
-			}
-		});
-	}
-});
-
-function limpiarIP() {
-	document.getElementById("ipEncontrada").innerHTML = "";
-	document.getElementById("nodoRed").value = "";
-	document.getElementById("vlan").value = "";
-	document.getElementById("puerto").value = "";
-	document.getElementById("switch").value = "";
-	document.getElementById("rack").value = "";
-	document.getElementById("comentario").value = "";
-
-	document.getElementById("nomUsuarioIP").value = "";
-	document.getElementById("userConIP").value = "";
-	document.getElementById("empID").value = "";
-	document.getElementById("hostNameIP").value = "";
-	document.getElementById("numSerieID").value = "";
-	document.getElementById("equipoIP").value = "";
-}
-
-function divUsuarioIp() {
-	let divs = [];
-
-	divs.push(document.getElementById("nomUsuarioIPdiv"));
-	divs.push(document.getElementById("userConIPdiv"));
-	divs.push(document.getElementById("empIDdiv"));
-	divs.push(document.getElementById("hostNameIPdiv"));
-	divs.push(document.getElementById("numSerieIDdiv"));
-	divs.push(document.getElementById("equipoIPdiv"));
-
-	let label = [];
-
-	label.push(document.getElementById("nomUsuarioIP"));
-	label.push(document.getElementById("userConIP"));
-	label.push(document.getElementById("empID"));
-	label.push(document.getElementById("hostNameIP"));
-	label.push(document.getElementById("numSerieID"));
-	label.push(document.getElementById("equipoIP"));
-
-	for (let index = 0; index < label.length; index++) {
-		if (label[index].value) {
-			divs[index].style.display = "block";
-		} else {
-			divs[index].style.display = "none";
-		}
-	}
-}
-
-$(nombreCompletoIPNew).select2();
-$(hostEquipoIpNew).select2();
 
 /*EQUIPOS*/
 function mostrarTodoEquipo(idEquipo) {
@@ -807,14 +734,12 @@ function limpiarModalEquipoUsuario() {
 	document.getElementById("modeloU").value = "";
 	document.getElementById("numSerieU").value = "";
 	document.getElementById("marcaU").value = "";
-	document.getElementById("upsU").value = "";
 	document.getElementById("equipoU").value = "";
 	document.getElementById("IPU").value = "";
 	document.getElementById("hostnameU2").value = "";
 	document.getElementById("modeloU2").value = "";
 	document.getElementById("numSerieU2").value = "";
 	document.getElementById("marcaU2").value = "";
-	document.getElementById("upsU2").value = "";
 	document.getElementById("equipoU2").value = "";
 	document.getElementById("IPU2").value = "";
 }
@@ -900,4 +825,141 @@ function guardarUsuarioBD() {
 			}
 		})
 	}
+}
+
+/*IP*/
+$(buscarIp).keyup(function (event) {
+	if (event.which === 13) {
+		limpiarIP();
+		$.ajax({
+			type: "POST",
+			url: "http://172.29.60.126/SIT/apiSIT/api/concentrado/single_read.php?IP=" + document.getElementById("buscarIp").value,
+			async: false,
+			success: function (response) {
+				document.getElementById("ipEncontrada").innerHTML = response.IP;
+				document.getElementById("nodoRed").value = response.Nodo_red;
+				document.getElementById("vlan").value = response.VLAN;
+				document.getElementById("puerto").value = response.Puerto_Switch;
+				document.getElementById("switch").value = response.Switch;
+				document.getElementById("rack").value = response.Rack;
+				document.getElementById("comentario").value = response.Comentario;
+				document.getElementById("mdlTitle").style.textAlign = "left";
+				document.getElementById("cardRed").style.display = "block";
+				document.getElementById("cardUsuario").style.display = "block";
+
+				$.ajax({
+					type: "POST",
+					url: "http://172.29.60.126/SIT/apiSIT/api/concentrado/buscarUsuario.php?IP=" + document.getElementById("buscarIp").value,
+					async: false,
+					success: function (response) {
+						document.getElementById("nomUsuarioIP").value = response.Nombre_persona;
+						document.getElementById("userConIP").value = response.Usuario_Conagua;
+						document.getElementById("empID").value = response.Id_empleado;
+						document.getElementById("hostNameIP").value = response.Host_Name;
+						document.getElementById("numSerieID").value = response.Numero_Serie;
+						document.getElementById("equipoIP").value = response.Equipo;
+						document.getElementById("buscarIp").value = "";
+
+						divUsuarioIp();
+					}
+				});
+			},
+			error: function (err) {
+				console.log(err);
+				document.getElementById("ipEncontrada").innerHTML = "La IP ingresada esta libre.";
+				document.getElementById("mdlTitle").style.textAlign = "center";
+				document.getElementById("cardUsuario").style.display = "block";
+				divUsuarioIp();
+			}
+		});
+	}
+});
+
+function limpiarIP() {
+	document.getElementById("ipEncontrada").innerHTML = "";
+	document.getElementById("nodoRed").value = "";
+	document.getElementById("vlan").value = "";
+	document.getElementById("puerto").value = "";
+	document.getElementById("switch").value = "";
+	document.getElementById("rack").value = "";
+	document.getElementById("comentario").value = "";
+
+	document.getElementById("nomUsuarioIP").value = "";
+	document.getElementById("userConIP").value = "";
+	document.getElementById("empID").value = "";
+	document.getElementById("hostNameIP").value = "";
+	document.getElementById("numSerieID").value = "";
+	document.getElementById("equipoIP").value = "";
+}
+
+function divUsuarioIp() {
+	let divs = [];
+
+	divs.push(document.getElementById("nomUsuarioIPdiv"));
+	divs.push(document.getElementById("userConIPdiv"));
+	divs.push(document.getElementById("empIDdiv"));
+	divs.push(document.getElementById("hostNameIPdiv"));
+	divs.push(document.getElementById("numSerieIDdiv"));
+	divs.push(document.getElementById("equipoIPdiv"));
+
+	let label = [];
+
+	label.push(document.getElementById("nomUsuarioIP"));
+	label.push(document.getElementById("userConIP"));
+	label.push(document.getElementById("empID"));
+	label.push(document.getElementById("hostNameIP"));
+	label.push(document.getElementById("numSerieID"));
+	label.push(document.getElementById("equipoIP"));
+
+	for (let index = 0; index < label.length; index++) {
+		if (label[index].value) {
+			divs[index].style.display = "block";
+		} else {
+			divs[index].style.display = "none";
+		}
+	}
+}
+
+$(nombreCompletoIPNew).select2();
+$(hostEquipoIpNew).select2();
+
+$('#IPNew').blur(function () {
+	let ipnew = document.getElementById("IPNew");
+
+	for (let index = 0; index < ipAll.length; index++) {
+		if (ipnew.value == ipAll[index]) {
+			Swal.fire({
+				icon: 'error',
+				title: 'La IP ingresada ya está ocupada.',
+			})
+			ipnew.style.color = "red";
+		}
+	}
+});
+
+function guardarIPBD() {
+	let nombreCompletoIPNew = document.getElementById("nombreCompletoIPNew").value;
+	let hostEquipoIpNew = document.getElementById("hostEquipoIpNew").value;
+	let nodoRedIPNew = document.getElementById("nodoRedIPNew").value.trim();
+	let VLAN = document.getElementById("VLAN").value.trim();
+	let puertoIPNew = document.getElementById("puertoIPNew").value.trim();
+	let rackIPNew = document.getElementById("rackIPNew").value.trim();
+	let switchIPNew = document.getElementById("switchIPNew").value.trim();
+	let comentarioIPNew = document.getElementById("comentarioIPNew").value.trim();
+	let IPNew = document.getElementById("IPNew").value.trim();
+
+
+	params = {
+		"IP": nombreCompletoNew,
+		"Nodo_red": curpNew,
+		"equipoExt": emailNew,
+		"idUsuario": usuarioNew,
+		"idResguardante": areaNew,
+		"VLAN": puestoNew,
+		"Puerto_Switch": gerenciaNew,
+		"Switch": idEmpleadoNew,
+		"Rack": idEmpleadoNew,
+		"Comentario": idEmpleadoNew
+	}
+	params = JSON.stringify(params);
 }

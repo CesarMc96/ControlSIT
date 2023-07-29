@@ -73,6 +73,108 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Actualizar Empleado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idArea\": 4,\r\n    \"idPuesto\": 71,\r\n    \"idGerencia\": 4,\r\n    \"idEmpleado\": 112\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/empleado/update.php",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"empleado",
+								"update.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Empleado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre_persona\": \"nombreCompletoNew\",\r\n    \"CURP\": \"curpNew\",\r\n    \"Correo_Conagua\": \"emailNew\",\r\n    \"Usuario_Conagua\": \"usuarioNew\",\r\n    \"idArea\": 12,\r\n    \"idPuesto\": 77,\r\n    \"idGerencia\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/empleado/create.php",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"empleado",
+								"create.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Usuario CONAGUA",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Correo_Conagua\": \"soporte.smn@conagua.gob.mx\",\r\n    \"Usuario_Conagua\": \"soportesmn\",\r\n    \"idUsuarioConagua\": 219,\r\n    \"Id_empleado\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/empleado/updateUC.php",
+							"protocol": "http",
+							"host": [
+								"172",
+								"29",
+								"60",
+								"126"
+							],
+							"path": [
+								"SIT",
+								"apiSIT",
+								"api",
+								"empleado",
+								"updateUC.php"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -363,7 +465,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idconcentradoTelefonos\": 151,\r\n    \"idEmpleado\": 0,\r\n    \"Comentarios\": \"Video Conferencia CNPT SMN\"\r\n}",
+							"raw": "{\r\n    \"idconcentradoTelefonos\": 2,\r\n    \"idEmpleado\": 2,\r\n    \"Comentarios\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -403,7 +505,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://172.29.60.126/SIT/apiSIT/api/telefono/single_read.php?idconcentradoTelefonos=154",
+							"raw": "http://172.29.60.126/SIT/apiSIT/api/telefono/single_read.php?idconcentradoTelefonos=2",
 							"protocol": "http",
 							"host": [
 								"172",
@@ -421,7 +523,7 @@
 							"query": [
 								{
 									"key": "idconcentradoTelefonos",
-									"value": "154"
+									"value": "2"
 								}
 							]
 						}

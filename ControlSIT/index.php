@@ -837,19 +837,25 @@ if (!$_SESSION['autentica']) {
                             <div class="col-md-12">
                                 <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Usuario</a>
+                                        <a class="nav-link active" style="cursor: pointer;"><i class="bx bx-user me-1"></i> Usuario</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="pages-account-settings-notifications.html"><i class="bx bx-printer me-1"></i> Impresora</a>
+                                        <a class="nav-link" style="cursor: pointer;"><i class="bx bx-printer me-1"></i> Impresora</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="pages-account-settings-connections.html"><i class="bx bx-data me-1"></i> Servidor</a>
+                                        <a class="nav-link" style="cursor: pointer;"><i class="bx bx-data me-1"></i> Servidor</a>
                                     </li>
                                 </ul>
                                 <div class="card mb-4">
                                     <hr class="my-0" />
 
                                     <div class="card-body" id="cardUsuario" style="display: block;">
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label for="IPNew" class="form-label">IP</label>
+                                                <input class="form-control" type="text" id="IPNew" name="IPNew" />
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label for="nombreCompletoIPNew" class="form-label">Nombre Usuario</label>
@@ -903,7 +909,7 @@ if (!$_SESSION['autentica']) {
                                                 <input class="form-control" type="text" id="puertoIPNew" name="puertoIPNew" />
                                             </div>
                                             <div class="mb-3 col-md-6">
-                                                <label for="switchIPNew" class="form-label">Switch</label>
+                                                <label for="puertoIPNew" class="form-label">Switch</label>
                                                 <input type="text" class="form-control" id="switchIPNew" name="switchIPNew">
                                             </div>
                                             <div class="mb-3 col-md-6">
@@ -916,7 +922,7 @@ if (!$_SESSION['autentica']) {
                                             </div>
 
                                             <div class="mt-2" id="botonesAgregar" style="text-align: end;">
-                                                <button type="submit" class="btn btn-primary me-2" onclick="guardarUsuarioBD();">Guardar</button>
+                                                <button type="submit" class="btn btn-primary me-2" onclick="guardarIPBD();">Guardar</button>
                                                 <button type="reset" class="btn btn-outline-secondary" onclick="limpiarUsuarioNew();">Limpiar</button>
                                             </div>
                                         </div>
