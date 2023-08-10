@@ -19,6 +19,13 @@
     $item->idPuesto = $data->idPuesto;
     $item->idGerencia = $data->idGerencia;
     $item->idEmpleado = $data->idEmpleado;
+    $item->Correo_Conagua = $data->Correo_Conagua;
+    $item->Usuario_Conagua = $data->Usuario_Conagua;
+    $item->idUsuarioConagua = $data->idUsuarioConagua;
+    $item->Id_empleado = $data->Id_empleado;
+    $item->Nombre_persona = $data->Nombre_persona;
+    $item->CURP = $data->CURP;
+    $item->idPersona = $data->idPersona;
 
     if($item->actualizarEmpleado()){
         echo "Usuario actualizado con exito.";

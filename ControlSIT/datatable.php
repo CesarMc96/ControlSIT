@@ -98,6 +98,38 @@
             "ordering": false
         });
     });
+
+    $(document).ready(function() {
+        $('#tblIP').DataTable({
+            /*columns: [
+                { width: '5%' }
+            ],
+                    rowGroup: {
+                        dataSrc: 12
+                    },
+                    */
+            pageLength: 10,
+            "language": {
+                "info": "Existen _TOTAL_ IPs registradas",
+                "search": "Buscar:",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "infoEmpty": "Mostrando 0 registros",
+                "paginate": {
+                    "first": "Primera",
+                    "last": "Ultima",
+                    "next": "Siguiente",
+                    "previous": "Anterior",
+                }
+            },
+            "bLengthChange": true,
+            "oLanguage": {
+                "sLengthMenu": "Mostrar _MENU_ IPs",
+            },
+            "ordering": false
+        });
+    });
 </script>
 
 <style>

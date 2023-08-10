@@ -32,7 +32,8 @@
                 "NombrePuesto" => $NombrePuesto,
                 "NombreGerencia" => $NombreGerencia,
                 "NombreArea" => $NombreArea,
-                "idUsuarioConagua" => $idUsuarioConagua
+                "idUsuarioConagua" => $idUsuarioConagua,
+                "idPersona" => $idPersona
             );
         }
         echo json_encode($e);
@@ -51,7 +52,8 @@
                 "NombrePuesto" => $NombrePuesto,
                 "NombreGerencia" => $NombreGerencia,
                 "NombreArea" => $NombreArea,
-                "idUsuarioConagua" => $idUsuarioConagua
+                "idUsuarioConagua" => $idUsuarioConagua,
+                "idPersona" => $idPersona
             );
             array_push($employeeArr, $e);
         }

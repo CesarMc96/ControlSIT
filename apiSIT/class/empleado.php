@@ -20,6 +20,7 @@ class Empleado {
     public $idPuesto;
     public $idArea;
     public $idGerencia;
+    public $idPersona;
 
     public function __construct($db) {
         $this->conn = $db;
@@ -43,7 +44,7 @@ class Empleado {
 
     public function getSingleUsuarioID() {
         $sqlQuery = "SELECT e.idEmpleado, uc.Id_empleado, p.Nombre_persona, e.idUsuarioConagua, uc.Usuario_Conagua, ext.Numero Numero_Extension, uc.Correo_Conagua, p.CURP, 
-        pu.NombrePuesto, g.NombreGerencia, a.NombreArea from " . $this->db_table . " e
+        pu.NombrePuesto, g.NombreGerencia, a.NombreArea, e.idPersona from " . $this->db_table . " e
         left join persona p on p.idPersona = e.idPersona
         left join usuarioconagua uc on uc.idUsuarioConagua= e.idUsuarioConagua
         left join puesto pu on pu.idPuesto= e.idPuesto
@@ -59,7 +60,7 @@ class Empleado {
         return $stmt;
     }
 
-    public function actualizarUsuarioConagua() {
+    public function actualizarEmpleado() {
         $sqlQuery = "UPDATE usuarioconagua SET Correo_Conagua=:Correo_Conagua, Usuario_Conagua=:Usuario_Conagua, Id_empleado=:Id_empleado WHERE idUsuarioConagua = :idUsuarioConagua";
 
         $stmt = $this->conn->prepare($sqlQuery);
@@ -86,27 +87,31 @@ class Empleado {
         $stmt->bindParam(":idUsuarioConagua", $this->idUsuarioConagua);
         $stmt->bindParam(":Id_empleado", $this->Id_empleado);
 
-        if ($stmt->execute()) {
-            return true;
-        }
-        return false;
-    }
+        $sqlQuery2 = "UPDATE empleado SET idPuesto=:idPuesto, idArea=:idArea, idGerencia=:idGerencia WHERE idEmpleado = :idEmpleado";
 
-    public function actualizarEmpleado() {
-        $sqlQuery = "UPDATE empleado SET idPuesto=:idPuesto, idArea=:idArea, idGerencia=:idGerencia WHERE idEmpleado = :idEmpleado";
-
-        $stmt = $this->conn->prepare($sqlQuery);
+        $stmt2 = $this->conn->prepare($sqlQuery2);
 
         $this->idPuesto = htmlspecialchars(strip_tags($this->idPuesto));
         $this->idArea = htmlspecialchars(strip_tags($this->idArea));
         $this->idGerencia = htmlspecialchars(strip_tags($this->idGerencia));
         $this->idEmpleado = htmlspecialchars(strip_tags($this->idEmpleado));
-        $stmt->bindParam(":idPuesto", $this->idPuesto);
-        $stmt->bindParam(":idArea", $this->idArea);
-        $stmt->bindParam(":idGerencia", $this->idGerencia);
-        $stmt->bindParam(":idEmpleado", $this->idEmpleado);
+        $stmt2->bindParam(":idPuesto", $this->idPuesto);
+        $stmt2->bindParam(":idArea", $this->idArea);
+        $stmt2->bindParam(":idGerencia", $this->idGerencia);
+        $stmt2->bindParam(":idEmpleado", $this->idEmpleado);
 
-        if ($stmt->execute()) {
+        $sqlQuery3 = "UPDATE persona SET Nombre_persona=:Nombre_persona, CURP=:CURP WHERE idPersona = :idPersona";
+
+        $stmt3 = $this->conn->prepare($sqlQuery3);
+
+        $this->Nombre_persona = htmlspecialchars(strip_tags($this->Nombre_persona));
+        $this->CURP = htmlspecialchars(strip_tags($this->CURP));
+        $this->idPersona = htmlspecialchars(strip_tags($this->idPersona));
+        $stmt3->bindParam(":Nombre_persona", $this->Nombre_persona);
+        $stmt3->bindParam(":CURP", $this->CURP);
+        $stmt3->bindParam(":idPersona", $this->idPersona);
+
+        if ($stmt->execute() && $stmt2->execute() && $stmt3->execute()) {
             return true;
         }
         return false;
@@ -162,4 +167,3 @@ class Empleado {
         return false;
     }
 }
-

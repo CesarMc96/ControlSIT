@@ -107,6 +107,18 @@ class Concentrado {
             $this->Comentario = null;
         }
 
+        if($this->idUsuario == ''){
+            $this->idUsuario = null;
+        }
+
+        if($this->idResguardante == ''){
+            $this->idResguardante = null;
+        }
+
+        if($this->equipoExt == ''){
+            $this->equipoExt = null;
+        }
+
         if ($stmt->execute()) {
             return true;
         }

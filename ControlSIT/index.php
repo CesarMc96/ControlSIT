@@ -23,7 +23,6 @@ if (!$_SESSION['autentica']) {
 
 <?php include "head.php" ?>
 
-
 <body>
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -74,7 +73,7 @@ if (!$_SESSION['autentica']) {
                     <li class="menu-item active" id="menuCompleto">
                         <a class="menu-link" onclick="cambiarBotones(1)">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Inicio</div>
+                            <div>Inicio</div>
                         </a>
                     </li>
 
@@ -83,22 +82,22 @@ if (!$_SESSION['autentica']) {
                     <li class="menu-item" id="menuUsuarios">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-user"></i>
-                            <div data-i18n="Account Settings">Usuarios</div>
+                            <div>Usuarios</div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item" id="buscarUsuario">
                                 <a class="menu-link" onclick="cambiarBotones(2);">
-                                    <div data-i18n="Account">Buscar </div>
+                                    <div>Buscar</div>
                                 </a>
                             </li>
                             <li class="menu-item" id="actualizarUsuario">
                                 <a class="menu-link" onclick="cambiarBotones(5);">
-                                    <div data-i18n="Notifications">Actualizar </div>
+                                    <div>Actualizar </div>
                                 </a>
                             </li>
                             <li class="menu-item" id="agregarUsuario">
                                 <a class="menu-link" onclick="cambiarBotones(7);">
-                                    <div data-i18n="Notifications">Agregar </div>
+                                    <div>Agregar </div>
                                 </a>
                             </li>
                         </ul>
@@ -112,33 +111,31 @@ if (!$_SESSION['autentica']) {
                         <ul class="menu-sub">
                             <li class="menu-item" id="buscarEquipo">
                                 <a class="menu-link" onclick="cambiarBotones(3);">
-                                    <div data-i18n="Basic">Buscar</div>
+                                    <div>Buscar</div>
                                 </a>
                             </li>
-                            <!--
-                            <li class="menu-item">
-                                <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                                    <div data-i18n="Basic">Actualizar</div>
-                                </a>
-                            </li>
-                            -->
                         </ul>
                     </li>
 
                     <li class="menu-item" id="menuIPs">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-broadcast"></i>
-                            <div data-i18n="Misc">IP</div>
+                            <div>IP</div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item" id="buscarIP">
                                 <a class="menu-link" onclick="cambiarBotones(4);">
-                                    <div data-i18n="Error">Buscar</div>
+                                    <div>Buscar</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item" id="actualizarIP">
+                                <a class="menu-link" onclick="cambiarBotones(9);">
+                                    <div>Actualizar</div>
+                                </a>
+                            </li>
+                            <li class="menu-item" id="agregarIP">
                                 <a class="menu-link" onclick="cambiarBotones(8);">
-                                    <div data-i18n="Basic">Agregar</div>
+                                    <div>Agregar</div>
                                 </a>
                             </li>
                         </ul>
@@ -482,21 +479,28 @@ if (!$_SESSION['autentica']) {
                                             <div class="mb-3 col-md-6" style="display: none;">
                                                 <input type="text" id="idEmC" />
                                             </div>
-                                            <div class="mb-3 col-md-6">
+                                            <div class="mb-3 col-md-6" style="display: none;">
+                                                <input type="text" id="idPer" />
+                                            </div>
+                                            <div class="mb-3 col-md-2">
                                                 <label for="idEmpleadoA" class="form-label">ID Empleado</label>
-                                                <input type="number" class="form-control" id="idEmpleadoA" name="idEmpleadoA" style="color: black;" />
+                                                <input type="number" class="form-control" id="idEmpleadoA" max="99999" name="idEmpleadoA" readonly style="color: black;" />
+                                            </div>
+                                            <div class="mb-3 col-md-4">
+                                                <label for="curpA" class="form-label">CURP</label>
+                                                <input class="form-control" type="text" name="curpA" maxlength="18" id="curpA" readonly style="color: black; text-transform:uppercase;" />
                                             </div>
                                             <div class="mb-3 col-md-6">
-                                                <label for="curpA" class="form-label">CURP</label>
-                                                <input class="form-control" type="text" name="curpA" id="curpA" readonly style="color: gray;" />
+                                                <label for="nombreCompletoA" class="form-label">Nombre</label>
+                                                <input class="form-control" type="text" name="nombreCompletoA" id="nombreCompletoA" readonly style="color: black; text-transform:uppercase;" />
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="usuarioA" class="form-label">Usuario</label>
-                                                <input class="form-control" type="text" id="usuarioA" name="usuarioA" style="color: black;" />
+                                                <input class="form-control" type="text" id="usuarioA" name="usuarioA" readonly style="color: black;" />
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="emailA" class="form-label">Correo Electronico</label>
-                                                <input class="form-control" type="text" id="emailA" name="emailA" style="color: black;" />
+                                                <input class="form-control" type="text" id="emailA" name="emailA" readonly style="color: black;" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="puestoA">Puesto</label>
@@ -567,11 +571,11 @@ if (!$_SESSION['autentica']) {
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label for="nombreCompletoNew" class="form-label">Nombre</label>
-                                                <input class="form-control" type="text" id="nombreCompletoNew" name="nombreCompletoNew" />
+                                                <input class="form-control" type="text" id="nombreCompletoNew" name="nombreCompletoNew" style="color: black; text-transform:uppercase;" />
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="curpNew" class="form-label">CURP</label>
-                                                <input class="form-control" type="text" name="curpNew" id="curpNew" />
+                                                <input class="form-control" type="text" name="curpNew" maxlength="18" id="curpNew" style="color: black; text-transform:uppercase;" />
                                             </div>
                                             <div class="mb-3 col-md-3">
                                                 <label for="idEmpleadoNew" class="form-label">ID Empleado</label>
@@ -579,11 +583,11 @@ if (!$_SESSION['autentica']) {
                                             </div>
                                             <div class="mb-3 col-md-3">
                                                 <label for="usuarioNew" class="form-label">Usuario</label>
-                                                <input class="form-control" type="text" id="usuarioNew" name="usuarioNew" />
+                                                <input class="form-control" type="text" id="usuarioNew" name="usuarioNew" style="color: black;" />
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="emailNew" class="form-label">Correo Electronico</label>
-                                                <input class="form-control" type="text" id="emailNew" name="emailNew" />
+                                                <input class="form-control" type="text" id="emailNew" name="emailNew" style="color: black;" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="puestoNew">Puesto</label>
@@ -830,32 +834,198 @@ if (!$_SESSION['autentica']) {
                     <div class="content-backdrop fade"></div>
                 </div>
 
-                <div class="content-wrapper" id="mdlAgregarIPUser" style="display: block;">
+                <div class="content-wrapper" id="mdlActualizarIP" style="display: block;">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Actualizar /</span> IP</h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card mb-4">
+                                    <hr class="my-0" />
+                                    <div class="card-body">
+                                        <!--div id="tabla" class="table-responsive text-nowrap">
+                                            <table id="tblIP" class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>IP</th>
+                                                        <th>Usuario</th>
+                                                        <th>Comentario</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    <?php
+                                                    $link = mysqli_connect("172.29.60.126:3306", "Cesar", "cesartic");
+                                                    mysqli_select_db($link, "tics");
+                                                    $documentos = mysqli_query($link, "SELECT idConcentrado, IP, Nombre_persona, Comentario from concentrado con
+                                                    left join empleado emp on emp.idEmpleado = con.idUsuario
+                                                    left join persona p on p.idPersona = emp.idPersona");
+                                                    while ($rows = mysqli_fetch_array($documentos)) {
+                                                        echo '<tr>';
+                                                        echo '<td> ' . '<i class="fab fa-angular fa-lg text-danger me-3"></i><strong>' . $rows[1] . '</strong>' . '</td>';
+                                                        echo '<td> ' . $rows[2] . '</td>';
+                                                        echo '<td> ' . $rows[3] . '</td>';
+                                                        echo '<td> 
+                                                        <a id="pruebaA" onclick="mostrarTodoIP(' . $rows[0] . ')" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#myModal"> 
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                                        </svg>
+                                                        </a> 
+                                                        </td>';
+                                                        echo '</tr>';;
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                            <hr>
+                                        </div-->
+
+                                        <div class="card-body" id="cardUsuarioIPnew" style="display: block;">
+                                            <div class="row">
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="buscarActIP" class="form-label">Usuario / Impresora / Otros</label>
+                                                    <select id="buscarActIP" class="select2 form-select" style="color: black;;">
+                                                        <option value="">-</option>
+                                                        <optgroup label="USUARIOS">
+                                                            <?php
+                                                            $query = $conexion_bd->prepare("Select distinct p.Nombre_persona from empleado e 
+                                                                inner join persona p on p.idPersona = e.idPersona 
+                                                                right join concentrado con on con.idUsuario = e.idEmpleado where idEmpleado is not null;");
+                                                            $query->execute();
+                                                            $data = $query->fetchAll();
+
+                                                            foreach ($data as $valores) :
+                                                                echo '<option value="' . $valores[0] . '" style="text-transform: uppercase;">' . $valores[0] . '</option>';
+                                                                array_push($usuariosDatos, $valores);
+                                                            endforeach;
+                                                            ?>
+                                                        </optgroup>
+                                                        <optgroup label="IMPRESORAS">
+                                                            <?php
+                                                            $query = $conexion_bd->prepare("SELECT distinct Comentario from concentrado con 
+                                                                where Comentario is not null and Comentario like '%rea:%';");
+                                                            $query->execute();
+                                                            $data = $query->fetchAll();
+
+                                                            foreach ($data as $valores) :
+                                                                echo '<option value="' . $valores[0] . '" style="text-transform: uppercase;">' . $valores[0] . '</option>';
+                                                                array_push($usuariosDatos, $valores);
+                                                            endforeach;
+                                                            ?>
+                                                        </optgroup>
+                                                        <optgroup label="OTROS">
+                                                            <?php
+                                                            $query = $conexion_bd->prepare("SELECT distinct Comentario from concentrado con 
+                                                            where Comentario is not null and Comentario not like '%rea:%' and idUsuario is null;");
+                                                            $query->execute();
+                                                            $data = $query->fetchAll();
+
+                                                            foreach ($data as $valores) :
+                                                                echo '<option value="' . $valores[0] . '" style="text-transform: uppercase;">' . $valores[0] . '</option>';
+                                                                array_push($usuariosDatos, $valores);
+                                                            endforeach;
+                                                            ?>
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label id="IPActPadre" class="form-label">IP</label>
+                                                    <!--select id="IPAct" class="select2 form-select" style="color: black;">
+                                                        <option value="">Seleccione:</option>
+                                                        <?php
+                                                        $query = $conexion_bd->prepare("SELECT idConcentrado, Comentario from concentrado con where Comentario is not null;");
+                                                        $query->execute();
+                                                        $data = $query->fetchAll();
+
+                                                        foreach ($data as $valores) :
+                                                            echo '<option value="' . $valores[0] . '">' . $valores[1] . '</option>';
+                                                            array_push($usuariosDatos, $valores);
+                                                        endforeach;
+
+                                                        ?>
+                                                    </select-->
+                                                </div>
+                                                <div class="mb-3 col-md-3">
+                                                    <label for="IPNew" class="form-label">IP</label>
+                                                    <input class="form-control" type="text" id="IPNew" name="IPNew" />
+                                                </div>
+                                                <div class="mb-3 col-md-1">
+                                                    <label for="nodoRedIPNew" class="form-label">Nodo red</label>
+                                                    <input class="form-control" type="text" id="nodoRedIPNew" name="nodoRedIPNew" maxlength="5" style="color: black; text-transform:uppercase;" />
+                                                </div>
+                                                <div class="mb-3 col-md-1">
+                                                    <label for="vlanIPNew" class="form-label">VLAN</label>
+                                                    <input class="form-control" type="text" name="vlanIPNew" id="vlanIPNew" readonly />
+                                                </div>
+                                                <div class="mb-3 col-md-2">
+                                                    <label for="puertoIPNew" class="form-label">Puerto</label>
+                                                    <input class="form-control" type="text" id="puertoIPNew" name="puertoIPNew" maxlength="10" value="GE 0/0/" style="color: black; text-transform:uppercase;" />
+                                                </div>
+                                                <div class="mb-3 col-md-2">
+                                                    <label for="switchIPNew" class="form-label">Switch</label>
+                                                    <select id="switchIPNew" class="select2 form-select" style="color: black;">
+                                                        <option value=""> Seleccione: </option>
+                                                        <option value="172.33.42.3">172.33.42.3</option>
+                                                        <option value="172.33.42.4">172.33.42.4</option>
+                                                        <option value="172.33.42.5">172.33.42.5</option>
+                                                        <option value="172.33.42.6">172.33.42.6</option>
+                                                        <option value="172.33.42.7">172.33.42.7</option>
+                                                        <option value="172.33.42.10">172.33.42.10</option>
+                                                        <option value="172.33.42.11">172.33.42.11</option>
+                                                        <option value="172.33.42.13">172.33.42.13</option>
+                                                        <option value="172.33.42.14">172.33.42.14</option>
+                                                        <option value="172.33.42.15">172.33.42.15</option>
+                                                        <option value="172.33.42.21">172.33.42.21</option>
+                                                        <option value="172.33.42.26">172.33.42.26</option>
+                                                        <option value="172.33.42.27">172.33.42.27</option>
+                                                        <option value="172.33.42.28">172.33.42.28</option>
+                                                        <option value="172.33.42.29">172.33.42.29</option>
+                                                        <option value="172.33.42.30">172.33.42.30</option>
+                                                        <option value="172.33.42.254">172.33.42.254</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-3">
+                                                    <label class="form-label" for="rackIPNew">Rack</label>
+                                                    <input class="form-control" type="text" name="rackIPNew" id="rackIPNew" readonly />
+                                                </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="comentarioIPNew" class="form-label">Comentario</label>
+                                                    <input type="text" class="form-control" id="comentarioIPNew" name="comentarioIPNew" />
+                                                </div>
+
+                                                <div class="mt-2" id="botonesAgregar" style="text-align: end;">
+                                                    <button type="submit" class="btn btn-primary me-2" onclick="guardarIPUserBD();">Guardar</button>
+                                                    <button type="reset" class="btn btn-outline-secondary" onclick="limpiarNuevaIP();">Limpiar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-backdrop fade"></div>
+                </div>
+
+                <div class="content-wrapper" id="mdlAgregarIP" style="display: none;">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Agregar /</span> IP</h4>
                         <div class="row">
                             <div class="col-md-12">
                                 <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                     <li class="nav-item">
-                                        <a class="nav-link active" style="cursor: pointer;"><i class="bx bx-user me-1"></i> Usuario</a>
+                                        <a class="nav-link active" style="cursor: pointer;" onclick="tipoIPAgregar(1);" id="IPUserAdd"><i class="bx bx-user me-1"></i> Usuario</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" style="cursor: pointer;"><i class="bx bx-printer me-1"></i> Impresora</a>
+                                        <a class="nav-link" style="cursor: pointer;" onclick="tipoIPAgregar(2);" id="IPPrinterAdd"><i class="bx bx-printer me-1"></i> Impresora</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" style="cursor: pointer;"><i class="bx bx-data me-1"></i> Servidor</a>
+                                        <a class="nav-link" style="cursor: pointer;" onclick="tipoIPAgregar(3);" id="IPServerAdd"><i class="bx bx-data me-1"></i> Servidor</a>
                                     </li>
                                 </ul>
                                 <div class="card mb-4">
                                     <hr class="my-0" />
 
-                                    <div class="card-body" id="cardUsuario" style="display: block;">
-                                        <div class="row">
-                                            <div class="mb-3 col-md-6">
-                                                <label for="IPNew" class="form-label">IP</label>
-                                                <input class="form-control" type="text" id="IPNew" name="IPNew" />
-                                            </div>
-                                        </div>
+                                    <div class="card-body" id="cardUsuarioIPnew" style="display: block;">
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label for="nombreCompletoIPNew" class="form-label">Nombre Usuario</label>
@@ -896,25 +1066,48 @@ if (!$_SESSION['autentica']) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <div class="mb-3 col-md-6">
+                                            <div class="mb-3 col-md-3">
+                                                <label for="IPNew" class="form-label">IP</label>
+                                                <input class="form-control" type="text" id="IPNew" name="IPNew" />
+                                            </div>
+                                            <div class="mb-3 col-md-1">
                                                 <label for="nodoRedIPNew" class="form-label">Nodo red</label>
-                                                <input class="form-control" type="text" id="nodoRedIPNew" name="nodoRedIPNew" />
+                                                <input class="form-control" type="text" id="nodoRedIPNew" name="nodoRedIPNew" maxlength="5" style="color: black; text-transform:uppercase;" />
                                             </div>
-                                            <div class="mb-3 col-md-6">
+                                            <div class="mb-3 col-md-1">
                                                 <label for="vlanIPNew" class="form-label">VLAN</label>
-                                                <input class="form-control" type="text" name="vlanIPNew" id="vlanIPNew" />
+                                                <input class="form-control" type="text" name="vlanIPNew" id="vlanIPNew" readonly />
                                             </div>
-                                            <div class="mb-3 col-md-6">
+                                            <div class="mb-3 col-md-2">
                                                 <label for="puertoIPNew" class="form-label">Puerto</label>
-                                                <input class="form-control" type="text" id="puertoIPNew" name="puertoIPNew" />
+                                                <input class="form-control" type="text" id="puertoIPNew" name="puertoIPNew" maxlength="10" value="GE 0/0/" style="color: black; text-transform:uppercase;" />
                                             </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label for="puertoIPNew" class="form-label">Switch</label>
-                                                <input type="text" class="form-control" id="switchIPNew" name="switchIPNew">
+                                            <div class="mb-3 col-md-2">
+                                                <label for="switchIPNew" class="form-label">Switch</label>
+                                                <select id="switchIPNew" class="select2 form-select" style="color: black;">
+                                                    <option value=""> Seleccione: </option>
+                                                    <option value="172.33.42.3">172.33.42.3</option>
+                                                    <option value="172.33.42.4">172.33.42.4</option>
+                                                    <option value="172.33.42.5">172.33.42.5</option>
+                                                    <option value="172.33.42.6">172.33.42.6</option>
+                                                    <option value="172.33.42.7">172.33.42.7</option>
+                                                    <option value="172.33.42.10">172.33.42.10</option>
+                                                    <option value="172.33.42.11">172.33.42.11</option>
+                                                    <option value="172.33.42.13">172.33.42.13</option>
+                                                    <option value="172.33.42.14">172.33.42.14</option>
+                                                    <option value="172.33.42.15">172.33.42.15</option>
+                                                    <option value="172.33.42.21">172.33.42.21</option>
+                                                    <option value="172.33.42.26">172.33.42.26</option>
+                                                    <option value="172.33.42.27">172.33.42.27</option>
+                                                    <option value="172.33.42.28">172.33.42.28</option>
+                                                    <option value="172.33.42.29">172.33.42.29</option>
+                                                    <option value="172.33.42.30">172.33.42.30</option>
+                                                    <option value="172.33.42.254">172.33.42.254</option>
+                                                </select>
                                             </div>
-                                            <div class="mb-3 col-md-6">
+                                            <div class="mb-3 col-md-3">
                                                 <label class="form-label" for="rackIPNew">Rack</label>
-                                                <input class="form-control" type="text" name="rackIPNew" id="rackIPNew" />
+                                                <input class="form-control" type="text" name="rackIPNew" id="rackIPNew" readonly />
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="comentarioIPNew" class="form-label">Comentario</label>
@@ -922,8 +1115,144 @@ if (!$_SESSION['autentica']) {
                                             </div>
 
                                             <div class="mt-2" id="botonesAgregar" style="text-align: end;">
-                                                <button type="submit" class="btn btn-primary me-2" onclick="guardarIPBD();">Guardar</button>
-                                                <button type="reset" class="btn btn-outline-secondary" onclick="limpiarUsuarioNew();">Limpiar</button>
+                                                <button type="submit" class="btn btn-primary me-2" onclick="guardarIPUserBD();">Guardar</button>
+                                                <button type="reset" class="btn btn-outline-secondary" onclick="limpiarNuevaIP();">Limpiar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body" id="cardImpresoraIPnew" style="display: none;">
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label for="impresoraName" class="form-label">Impresora</label>
+                                                <select id="impresoraName" class="select2 form-select" style="color: black;">
+                                                    <option value="">Seleccione:</option>
+                                                    <?php
+                                                    $query = $conexion_bd->prepare("SELECT e.idEquipo, CONCAT ('Modelo: ', de.Modelo, ' / Serie: ', d.Numero_Serie) Impresora from equipo e
+                                                    inner join tipodispositivo td on td.idTipoDispositivo= e.idTipoDispositivo
+                                                    inner join datosextrasdispositivo de on de.idDatosDispositivo= e.idDatosDispositivo
+                                                    inner join dispositivo d on d.idDispositivo= e.idDispositivo
+                                                    left join concentrado eq on eq.equipoExt = e.idEquipo
+                                                    where e.idTipoDispositivo between 16 and 19 and eq.idConcentrado is null;");
+                                                    $query->execute();
+                                                    $data = $query->fetchAll();
+
+                                                    foreach ($data as $valores) :
+                                                        echo '<option value="' . $valores[0] . '">' . $valores[1] . '</option>';
+                                                        array_push($usuariosDatos, $valores);
+                                                    endforeach;
+
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="comentarioIPNewPrint" class="form-label">Área</label>
+                                                <input type="text" class="form-control" id="comentarioIPNewPrint" name="comentarioIPNewPrint" />
+                                            </div>
+                                            <div class="mb-3 col-md-3">
+                                                <label for="IPNewPrint" class="form-label">IP</label>
+                                                <input class="form-control" type="text" id="IPNewPrint" name="IPNewPrint" />
+                                            </div>
+                                            <div class="mb-3 col-md-1">
+                                                <label for="nodoRedIPNewPrint" class="form-label">Nodo red</label>
+                                                <input class="form-control" type="text" id="nodoRedIPNewPrint" name="nodoRedIPNewPrint" maxlength="5" style="color: black; text-transform:uppercase;" />
+                                            </div>
+                                            <div class="mb-3 col-md-1">
+                                                <label for="vlanIPNewPrint" class="form-label">VLAN</label>
+                                                <input class="form-control" type="text" name="vlanIPNewPrint" id="vlanIPNewPrint" readonly />
+                                            </div>
+                                            <div class="mb-3 col-md-2">
+                                                <label for="puertoIPNewPrint" class="form-label">Puerto</label>
+                                                <input class="form-control" type="text" id="puertoIPNewPrint" name="puertoIPNewPrint" maxlength="9" value="GE 0/0/" style="color: black; text-transform:uppercase;" />
+                                            </div>
+                                            <div class="mb-3 col-md-2">
+                                                <label for="switchIPNewPrint" class="form-label">Switch</label>
+                                                <select id="switchIPNewPrint" class="select2 form-select" style="color: black;">
+                                                    <option value=""> Seleccione: </option>
+                                                    <option value="172.33.42.3">172.33.42.3</option>
+                                                    <option value="172.33.42.4">172.33.42.4</option>
+                                                    <option value="172.33.42.5">172.33.42.5</option>
+                                                    <option value="172.33.42.6">172.33.42.6</option>
+                                                    <option value="172.33.42.7">172.33.42.7</option>
+                                                    <option value="172.33.42.10">172.33.42.10</option>
+                                                    <option value="172.33.42.11">172.33.42.11</option>
+                                                    <option value="172.33.42.13">172.33.42.13</option>
+                                                    <option value="172.33.42.14">172.33.42.14</option>
+                                                    <option value="172.33.42.15">172.33.42.15</option>
+                                                    <option value="172.33.42.21">172.33.42.21</option>
+                                                    <option value="172.33.42.26">172.33.42.26</option>
+                                                    <option value="172.33.42.27">172.33.42.27</option>
+                                                    <option value="172.33.42.28">172.33.42.28</option>
+                                                    <option value="172.33.42.29">172.33.42.29</option>
+                                                    <option value="172.33.42.30">172.33.42.30</option>
+                                                    <option value="172.33.42.254">172.33.42.254</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-md-3">
+                                                <label class="form-label" for="rackIPNewPrint">Rack</label>
+                                                <input class="form-control" type="text" name="rackIPNewPrint" id="rackIPNewPrint" readonly />
+                                            </div>
+
+                                            <div class="mt-2" id="botonesAgregar" style="text-align: end;">
+                                                <button type="submit" class="btn btn-primary me-2" onclick="guardarIPPrintBD();">Guardar</button>
+                                                <button type="reset" class="btn btn-outline-secondary" onclick="limpiarNuevaIP();">Limpiar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body" id="cardServerIPnew" style="display: none;">
+                                        <div class="row">
+                                            <div class="mb-3 col-md-12">
+                                                <label for="comentarioIPNewServer" class="form-label">Nombre Servidor</label>
+                                                <input type="text" class="form-control" id="comentarioIPNewServer" name="comentarioIPNewServer" />
+                                            </div>
+                                            <div class="mb-3 col-md-3">
+                                                <label for="IPNewServer" class="form-label">IP</label>
+                                                <input class="form-control" type="text" id="IPNewServer" name="IPNewServer" />
+                                            </div>
+                                            <div class="mb-3 col-md-1">
+                                                <label for="nodoRedIPNewServer" class="form-label">Nodo red</label>
+                                                <input class="form-control" type="text" id="nodoRedIPNewServer" name="nodoRedIPNewServer" maxlength="5" style="color: black; text-transform:uppercase;" />
+                                            </div>
+                                            <div class="mb-3 col-md-1">
+                                                <label for="vlanIPNewServer" class="form-label">VLAN</label>
+                                                <input class="form-control" type="text" name="vlanIPNewServer" id="vlanIPNewServer" readonly />
+                                            </div>
+                                            <div class="mb-3 col-md-2">
+                                                <label for="puertoIPNewServer" class="form-label">Puerto</label>
+                                                <input class="form-control" type="text" id="puertoIPNewServer" name="puertoIPNewServer" maxlength="10" value="GE 0/0/" style="color: black; text-transform:uppercase;" />
+                                            </div>
+                                            <div class="mb-3 col-md-2">
+                                                <label for="switchIPNewServer" class="form-label">Switch</label>
+                                                <select id="switchIPNewServer" class="select2 form-select" style="color: black;">
+                                                    <option value=""> Seleccione: </option>
+                                                    <option value="172.33.42.3">172.33.42.3</option>
+                                                    <option value="172.33.42.4">172.33.42.4</option>
+                                                    <option value="172.33.42.5">172.33.42.5</option>
+                                                    <option value="172.33.42.6">172.33.42.6</option>
+                                                    <option value="172.33.42.7">172.33.42.7</option>
+                                                    <option value="172.33.42.10">172.33.42.10</option>
+                                                    <option value="172.33.42.11">172.33.42.11</option>
+                                                    <option value="172.33.42.13">172.33.42.13</option>
+                                                    <option value="172.33.42.14">172.33.42.14</option>
+                                                    <option value="172.33.42.15">172.33.42.15</option>
+                                                    <option value="172.33.42.21">172.33.42.21</option>
+                                                    <option value="172.33.42.26">172.33.42.26</option>
+                                                    <option value="172.33.42.27">172.33.42.27</option>
+                                                    <option value="172.33.42.28">172.33.42.28</option>
+                                                    <option value="172.33.42.29">172.33.42.29</option>
+                                                    <option value="172.33.42.30">172.33.42.30</option>
+                                                    <option value="172.33.42.254">172.33.42.254</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-md-3">
+                                                <label class="form-label" for="rackIPNewServer">Rack</label>
+                                                <input class="form-control" type="text" name="rackIPNewServer" id="rackIPNewServer" readonly />
+                                            </div>
+
+                                            <div class="mt-2" id="botonesAgregar" style="text-align: end;">
+                                                <button type="submit" class="btn btn-primary me-2" onclick="guardarIPServerBD();">Guardar</button>
+                                                <button type="reset" class="btn btn-outline-secondary" onclick="limpiarNuevaIP();">Limpiar</button>
                                             </div>
                                         </div>
                                     </div>
