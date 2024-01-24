@@ -1,6 +1,6 @@
 <?php
 @session_start();
-$_SESSION["pagina"] = "login";
+$_SESSION["pagina"] = "cambiarPass";
 if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
     $ipAdress = $_SERVER['HTTP_CLIENT_IP'];
 } else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -10,16 +10,14 @@ if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 }
 ?>
 
-<?php if (isset($_SESSION['autentica'])) {
-    header("Location: index.php");
-} else { ?>
+<?php if (isset($_SESSION['autentica'])) { ?>
     <!DOCTYPE html>
     <html class="light-style customizer-hide">
 
     <?php include "head.php" ?>
 
     <body>
-        <input type="text" id="IPVisitante" value="<?php echo $ipAdress ?>" />
+        <input type="text" id="IPVisitante" style="display:none;" value="<?php echo $ipAdress ?>" />
 
         <div class="container-xxl">
             <div class="authentication-wrapper authentication-basic container-p-y">
@@ -50,7 +48,7 @@ if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
                                     <button class="btn btn-primary d-grid w-100" type="submit" name="login">Iniciar sesión</button>
                                 </div>
                             </form>
-                            <div id="logerror">
+                            <div id="logerror" style="color: red;text-align: center;">
                                 <?php
                                 if (isset($_POST['login'])) {
                                     $link = mysqli_connect("localhost", "Cesar", "cesartic");
@@ -105,4 +103,7 @@ if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 
     </html>
 
+
+<?php } else {
+    header("Location: index.php"); ?>
 <?php } ?>

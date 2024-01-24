@@ -3,7 +3,9 @@ header("Cache-Control: no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+
 @session_start();
+
 if (!$_SESSION['autentica']) {
     header('location: login.php');
 } else {
@@ -12,11 +14,13 @@ if (!$_SESSION['autentica']) {
     $usuarioConagua = $_SESSION["Usuario_Conagua"];
     $correoConagua = $_SESSION["Correo_Conagua"];
     $idUsuario = $_SESSION["idUsuario"];
+    $ipAdress = $_SESSION["ipAdress"];
 
     $usuariosDatos = [];
     $conexion_bd = new PDO("mysql:host=172.29.60.126;dbname=tics;charset=utf8; port=3306", "Cesar", "cesartic");
 }
 ?>
+
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
@@ -24,6 +28,8 @@ if (!$_SESSION['autentica']) {
 <?php include "head.php" ?>
 
 <body>
+    <input type="text" id="IPVisitante" value="<?php echo $ipAdress ?>" />
+    <input type="text" id="IDUsuarioEditor" value="<?php echo $idUsuario ?>" />
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
@@ -117,6 +123,25 @@ if (!$_SESSION['autentica']) {
                         </ul>
                     </li>
 
+                    <li class="menu-item" id="menuTelefonos">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-phone-call"></i>
+                            <div data-i18n="Account Settings">Teléfonos</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item" id="buscarTelefono">
+                                <a class="menu-link" onclick="cambiarBotones(6);">
+                                    <div data-i18n="Account">Buscar Teléfono</div>
+                                </a>
+                            </li>
+                            <!--li class="menu-item" id="actualizarTelefono">
+                                <a class="menu-link" onclick="cambiarBotones(7);">
+                                    <div data-i18n="Notifications">Actualizar </div>
+                                </a>
+                            </li-->
+                        </ul>
+                    </li>
+
                     <li class="menu-item" id="menuIPs">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-broadcast"></i>
@@ -136,25 +161,6 @@ if (!$_SESSION['autentica']) {
                             <li class="menu-item" id="agregarIP">
                                 <a class="menu-link" onclick="cambiarBotones(8);">
                                     <div>Agregar</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-item" id="menuTelefonos">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-phone-call"></i>
-                            <div data-i18n="Account Settings">Teléfonos</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item" id="buscarTelefono">
-                                <a class="menu-link" onclick="cambiarBotones(6);">
-                                    <div data-i18n="Account">Buscar Teléfono</div>
-                                </a>
-                            </li>
-                            <li class="menu-item" id="actualizarTelefono">
-                                <a class="menu-link" onclick="cambiarBotones(7);">
-                                    <div data-i18n="Notifications">Actualizar </div>
                                 </a>
                             </li>
                         </ul>
@@ -236,25 +242,13 @@ if (!$_SESSION['autentica']) {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
 
-                            <div class="modal-body">
-                                <div class="row">
-                                    <h5><label><?php echo $nombrePersona ?></label></h5>
-                                    <label class="form-label">Usuario</label>
-                                    <label><?php echo $usuarioConagua ?></label>
-                                    <div class="mb-3 col-md-6">
-                                        <label class="form-label">Correo Electronico</label>
-                                        <input class="form-control" type="text" value="<?php echo $correoConagua ?>" name="email" readonly />
-                                    </div>
-                                </div>
+                            <div class="modal-body" style="text-align: center;">
+                                <h5><label><?php echo $nombrePersona ?></label></h5>
+                                <button type="button" class="btn btn-ligh" style="border-color: gray;">Perfil Completo</button><br><br>
+                                <button type="button" class="btn btn-ligh" style="border-color: gray;">Cambiar Contraseña</button>
                             </div>
 
                             <div class="modal-footer" style="width: 100%;">
-                                <button type="button" class="btn btn-light" style="padding: 0%;" onclick="mostarEquipoUsuario();"> Equipo &nbsp;
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                    </svg>
-                                </button>
-                                <div id="pruebaEspacio" style="width: 68%;"></div>
                                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="limpiarModalEquipoUsuario();">Cerrar</button>
                             </div>
 
@@ -547,9 +541,14 @@ if (!$_SESSION['autentica']) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <div class="mt-2" id="botonesActualizar" style="display: none; text-align: end;">
-                                                <button type="submit" class="btn btn-primary me-2" onclick="actualizarUsuarioBD();">Guardar</button>
-                                                <button type="reset" class="btn btn-outline-secondary" onclick="revertirUsuario();">Revetir</button>
+                                            <div class="mt-2" id="botonesActualizar" style="display: none;">
+                                                <div style="text-align: left; width: 50%;">
+                                                    <!--button type="button" class="btn btn-outline-danger">Dar de baja</button-->
+                                                </div>
+                                                <div style="text-align: end; width: 50%;">
+                                                    <button type="submit" class="btn btn-primary" onclick="actualizarUsuarioBD();">Guardar</button>
+                                                    <button type="reset" class="btn btn-outline-secondary" onclick="revertirUsuario();">Revetir</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -750,6 +749,134 @@ if (!$_SESSION['autentica']) {
                     <div class="content-backdrop fade"></div>
                 </div>
 
+                <div class="content-wrapper" id="mdlBuscarTelefono" style="display: none;">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Buscar /</span> Teléfonos</h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card mb-4">
+                                    <hr class="my-0" />
+                                    <div class="card-body">
+                                        <div id="tabla" class="table-responsive text-nowrap">
+                                            <table id="tblTelefonos" class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>IP</th>
+                                                        <th>Modelo</th>
+                                                        <th>Numero Serie</th>
+                                                        <th>Extension</th>
+                                                        <th>Usuario</th>
+                                                        <th>Comentarios</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    <?php
+                                                    $link = mysqli_connect("172.29.60.126:3306", "Cesar", "cesartic");
+                                                    mysqli_select_db($link, "tics");
+                                                    $documentos = mysqli_query($link, "SELECT idconcentradoTelefonos, ipTelefono, Modelo, Numero_Serie, Numero Extension, p.Nombre_persona, ct.Comentarios FROM tics.concentradotelefonos ct
+                                                    left join equipo e on e.idEquipo = ct.idEquipo
+                                                    left join tipodispositivo td on td.idTipoDispositivo= e.idTipoDispositivo
+                                                    left join extension ext on ext.idExtension= ct.idExtension
+                                                    left join datosextrasdispositivo de on de.idDatosDispositivo= e.idDatosDispositivo
+                                                    left join dispositivo d on d.idDispositivo= e.idDispositivo
+                                                    left join empleado em on em.idEmpleado= ct.idEmpleado
+                                                    left join persona p on p.idPersona = em.idPersona ;");
+                                                    while ($rows = mysqli_fetch_array($documentos)) {
+                                                        echo '<tr>';
+                                                        echo '<td> ' . '<i class="fab fa-angular fa-lg text-danger me-3"></i><strong>' . $rows[1] . '</strong>' . '</td>';
+                                                        echo '<td> ' . $rows[2] . '</td>';
+                                                        echo '<td> ' . $rows[3] . '</td>';
+                                                        echo '<td> ' . $rows[4] . '</td>';
+                                                        echo '<td> ' . $rows[5] . '</td>';
+                                                        echo '<td> ' . $rows[6] . '</td>';
+                                                        echo '<td> 
+                                                        <a id="pruebaA" onclick="mostrarTodoTelefono(' . $rows[0] . ');" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#modlUpdateTel"> 
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                                        </svg>
+                                                        </a> 
+                                                        </td>';
+                                                        echo '</tr>';;
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                            <hr>
+                                        </div>
+
+                                        <div class="modal fade" id="modlUpdateTel">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title"><label id="nombreTituloTel"></label></h3>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="limpiarModalEquipoUsuario();"></button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="mb-3 col-md-6" style="display: none;">
+                                                                <input type="text" id="idconcentradoTelefonos" />
+                                                            </div>
+                                                            <div class="mb-3 col-md-6">
+                                                                <label for="modeloTel" class="form-label">Modelo</label>
+                                                                <input class="form-control" type="text" name="modeloTel" id="modeloTel" readonly />
+                                                            </div>
+                                                            <div class="mb-3 col-md-6">
+                                                                <label for="SerieTel" class="form-label">Número Serie</label>
+                                                                <input class="form-control" type="text" id="SerieTel" name="SerieTel" readonly />
+                                                            </div>
+                                                            <div class="mb-3 col-md-6">
+                                                                <label for="extTel" class="form-label">Extensión</label>
+                                                                <input class="form-control" type="text" id="extTel" name="extTel" readonly />
+                                                            </div>
+                                                            <div class="mb-3 col-md-6">
+                                                                <label class="form-label" for="userTel">Usuario</label>
+                                                                <select id="userTel" class="select2 form-select" style="color: black;">
+                                                                    <option value="0">Seleccione:</option>
+                                                                    <?php
+                                                                    $query = $conexion_bd->prepare("
+                                                                    Select e.idEmpleado, p.Nombre_persona from empleado e
+                                                                    inner join persona p on p.idPersona = e.idPersona
+                                                                    order by p.Nombre_persona;
+                                                                    ");
+                                                                    $query->execute();
+                                                                    $data = $query->fetchAll();
+
+                                                                    foreach ($data as $valores) :
+                                                                        echo '<option value="' . $valores[0] . '">' . $valores[1] . '</option>';
+                                                                        array_push($usuariosDatos, $valores);
+                                                                    endforeach;
+
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="comTel" class="form-label">Comentarios</label>
+                                                                <input class="form-control" type="text" id="comTel" name="comtTel" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer" style="width: 100%;">
+                                                        <div id="pruebaEspacio" style="width: 68%;"></div>
+                                                        <button type="button" class="btn btn-secundary" onclick="actualizarTelefono();">Guardar</button>
+                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-backdrop fade"></div>
+                </div>
+
                 <div class="content-wrapper" id="mdlBuscarIP" style="display: none;">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Buscar /</span> IP</h4>
@@ -834,177 +961,6 @@ if (!$_SESSION['autentica']) {
                     <div class="content-backdrop fade"></div>
                 </div>
 
-                <div class="content-wrapper" id="mdlActualizarIP" style="display: block;">
-                    <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Actualizar /</span> IP</h4>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card mb-4">
-                                    <hr class="my-0" />
-                                    <div class="card-body">
-                                        <!--div id="tabla" class="table-responsive text-nowrap">
-                                            <table id="tblIP" class="table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>IP</th>
-                                                        <th>Usuario</th>
-                                                        <th>Comentario</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="table-border-bottom-0">
-                                                    <?php
-                                                    $link = mysqli_connect("172.29.60.126:3306", "Cesar", "cesartic");
-                                                    mysqli_select_db($link, "tics");
-                                                    $documentos = mysqli_query($link, "SELECT idConcentrado, IP, Nombre_persona, Comentario from concentrado con
-                                                    left join empleado emp on emp.idEmpleado = con.idUsuario
-                                                    left join persona p on p.idPersona = emp.idPersona");
-                                                    while ($rows = mysqli_fetch_array($documentos)) {
-                                                        echo '<tr>';
-                                                        echo '<td> ' . '<i class="fab fa-angular fa-lg text-danger me-3"></i><strong>' . $rows[1] . '</strong>' . '</td>';
-                                                        echo '<td> ' . $rows[2] . '</td>';
-                                                        echo '<td> ' . $rows[3] . '</td>';
-                                                        echo '<td> 
-                                                        <a id="pruebaA" onclick="mostrarTodoIP(' . $rows[0] . ')" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#myModal"> 
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                                                        </svg>
-                                                        </a> 
-                                                        </td>';
-                                                        echo '</tr>';;
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                            <hr>
-                                        </div-->
-
-                                        <div class="card-body" id="cardUsuarioIPnew" style="display: block;">
-                                            <div class="row">
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="buscarActIP" class="form-label">Usuario / Impresora / Otros</label>
-                                                    <select id="buscarActIP" class="select2 form-select" style="color: black;;">
-                                                        <option value="">-</option>
-                                                        <optgroup label="USUARIOS">
-                                                            <?php
-                                                            $query = $conexion_bd->prepare("Select distinct p.Nombre_persona from empleado e 
-                                                                inner join persona p on p.idPersona = e.idPersona 
-                                                                right join concentrado con on con.idUsuario = e.idEmpleado where idEmpleado is not null;");
-                                                            $query->execute();
-                                                            $data = $query->fetchAll();
-
-                                                            foreach ($data as $valores) :
-                                                                echo '<option value="' . $valores[0] . '" style="text-transform: uppercase;">' . $valores[0] . '</option>';
-                                                                array_push($usuariosDatos, $valores);
-                                                            endforeach;
-                                                            ?>
-                                                        </optgroup>
-                                                        <optgroup label="IMPRESORAS">
-                                                            <?php
-                                                            $query = $conexion_bd->prepare("SELECT distinct Comentario from concentrado con 
-                                                                where Comentario is not null and Comentario like '%rea:%';");
-                                                            $query->execute();
-                                                            $data = $query->fetchAll();
-
-                                                            foreach ($data as $valores) :
-                                                                echo '<option value="' . $valores[0] . '" style="text-transform: uppercase;">' . $valores[0] . '</option>';
-                                                                array_push($usuariosDatos, $valores);
-                                                            endforeach;
-                                                            ?>
-                                                        </optgroup>
-                                                        <optgroup label="OTROS">
-                                                            <?php
-                                                            $query = $conexion_bd->prepare("SELECT distinct Comentario from concentrado con 
-                                                            where Comentario is not null and Comentario not like '%rea:%' and idUsuario is null;");
-                                                            $query->execute();
-                                                            $data = $query->fetchAll();
-
-                                                            foreach ($data as $valores) :
-                                                                echo '<option value="' . $valores[0] . '" style="text-transform: uppercase;">' . $valores[0] . '</option>';
-                                                                array_push($usuariosDatos, $valores);
-                                                            endforeach;
-                                                            ?>
-                                                        </optgroup>
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3 col-md-6">
-                                                    <label id="IPActPadre" class="form-label">IP</label>
-                                                    <!--select id="IPAct" class="select2 form-select" style="color: black;">
-                                                        <option value="">Seleccione:</option>
-                                                        <?php
-                                                        $query = $conexion_bd->prepare("SELECT idConcentrado, Comentario from concentrado con where Comentario is not null;");
-                                                        $query->execute();
-                                                        $data = $query->fetchAll();
-
-                                                        foreach ($data as $valores) :
-                                                            echo '<option value="' . $valores[0] . '">' . $valores[1] . '</option>';
-                                                            array_push($usuariosDatos, $valores);
-                                                        endforeach;
-
-                                                        ?>
-                                                    </select-->
-                                                </div>
-                                                <div class="mb-3 col-md-3">
-                                                    <label for="IPNew" class="form-label">IP</label>
-                                                    <input class="form-control" type="text" id="IPNew" name="IPNew" />
-                                                </div>
-                                                <div class="mb-3 col-md-1">
-                                                    <label for="nodoRedIPNew" class="form-label">Nodo red</label>
-                                                    <input class="form-control" type="text" id="nodoRedIPNew" name="nodoRedIPNew" maxlength="5" style="color: black; text-transform:uppercase;" />
-                                                </div>
-                                                <div class="mb-3 col-md-1">
-                                                    <label for="vlanIPNew" class="form-label">VLAN</label>
-                                                    <input class="form-control" type="text" name="vlanIPNew" id="vlanIPNew" readonly />
-                                                </div>
-                                                <div class="mb-3 col-md-2">
-                                                    <label for="puertoIPNew" class="form-label">Puerto</label>
-                                                    <input class="form-control" type="text" id="puertoIPNew" name="puertoIPNew" maxlength="10" value="GE 0/0/" style="color: black; text-transform:uppercase;" />
-                                                </div>
-                                                <div class="mb-3 col-md-2">
-                                                    <label for="switchIPNew" class="form-label">Switch</label>
-                                                    <select id="switchIPNew" class="select2 form-select" style="color: black;">
-                                                        <option value=""> Seleccione: </option>
-                                                        <option value="172.33.42.3">172.33.42.3</option>
-                                                        <option value="172.33.42.4">172.33.42.4</option>
-                                                        <option value="172.33.42.5">172.33.42.5</option>
-                                                        <option value="172.33.42.6">172.33.42.6</option>
-                                                        <option value="172.33.42.7">172.33.42.7</option>
-                                                        <option value="172.33.42.10">172.33.42.10</option>
-                                                        <option value="172.33.42.11">172.33.42.11</option>
-                                                        <option value="172.33.42.13">172.33.42.13</option>
-                                                        <option value="172.33.42.14">172.33.42.14</option>
-                                                        <option value="172.33.42.15">172.33.42.15</option>
-                                                        <option value="172.33.42.21">172.33.42.21</option>
-                                                        <option value="172.33.42.26">172.33.42.26</option>
-                                                        <option value="172.33.42.27">172.33.42.27</option>
-                                                        <option value="172.33.42.28">172.33.42.28</option>
-                                                        <option value="172.33.42.29">172.33.42.29</option>
-                                                        <option value="172.33.42.30">172.33.42.30</option>
-                                                        <option value="172.33.42.254">172.33.42.254</option>
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3 col-md-3">
-                                                    <label class="form-label" for="rackIPNew">Rack</label>
-                                                    <input class="form-control" type="text" name="rackIPNew" id="rackIPNew" readonly />
-                                                </div>
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="comentarioIPNew" class="form-label">Comentario</label>
-                                                    <input type="text" class="form-control" id="comentarioIPNew" name="comentarioIPNew" />
-                                                </div>
-
-                                                <div class="mt-2" id="botonesAgregar" style="text-align: end;">
-                                                    <button type="submit" class="btn btn-primary me-2" onclick="guardarIPUserBD();">Guardar</button>
-                                                    <button type="reset" class="btn btn-outline-secondary" onclick="limpiarNuevaIP();">Limpiar</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content-backdrop fade"></div>
-                </div>
 
                 <div class="content-wrapper" id="mdlAgregarIP" style="display: none;">
                     <div class="container-xxl flex-grow-1 container-p-y">
@@ -1263,126 +1219,307 @@ if (!$_SESSION['autentica']) {
                     <div class="content-backdrop fade"></div>
                 </div>
 
-                <div class="content-wrapper" id="mdlBuscarTelefono" style="display: none;">
+                <div class="content-wrapper" id="mdlActualizarIP" style="display: none;">
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Buscar /</span> Teléfonos</h4>
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Actualizar /</span> IP</h4>
                         <div class="row">
                             <div class="col-md-12">
+                                <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" style="cursor: pointer;" onclick="tipoIPActualizar(1);" id="IPUseract"><i class="bx bx-user me-1"></i> Usuario</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" style="cursor: pointer;" onclick="tipoIPActualizar(2);" id="IPPrinteract"><i class="bx bx-printer me-1"></i> Impresora</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" style="cursor: pointer;" onclick="tipoIPActualizar(3);" id="IPServeract"><i class="bx bx-data me-1"></i> Servidor</a>
+                                    </li>
+                                </ul>
                                 <div class="card mb-4">
                                     <hr class="my-0" />
                                     <div class="card-body">
-                                        <div id="tabla" class="table-responsive text-nowrap">
-                                            <table id="tblTelefonos" class="table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>IP</th>
-                                                        <th>Modelo</th>
-                                                        <th>Numero Serie</th>
-                                                        <th>Extension</th>
-                                                        <th>Usuario</th>
-                                                        <th>Comentarios</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="table-border-bottom-0">
-                                                    <?php
-                                                    $link = mysqli_connect("172.29.60.126:3306", "Cesar", "cesartic");
-                                                    mysqli_select_db($link, "tics");
-                                                    $documentos = mysqli_query($link, "SELECT idconcentradoTelefonos, ipTelefono, Modelo, Numero_Serie, Numero Extension, p.Nombre_persona, ct.Comentarios FROM tics.concentradotelefonos ct
-                                                    left join equipo e on e.idEquipo = ct.idEquipo
-                                                    left join tipodispositivo td on td.idTipoDispositivo= e.idTipoDispositivo
-                                                    left join extension ext on ext.idExtension= ct.idExtension
-                                                    left join datosextrasdispositivo de on de.idDatosDispositivo= e.idDatosDispositivo
-                                                    left join dispositivo d on d.idDispositivo= e.idDispositivo
-                                                    left join empleado em on em.idEmpleado= ct.idEmpleado
-                                                    left join persona p on p.idPersona = em.idPersona ;");
-                                                    while ($rows = mysqli_fetch_array($documentos)) {
-                                                        echo '<tr>';
-                                                        echo '<td> ' . '<i class="fab fa-angular fa-lg text-danger me-3"></i><strong>' . $rows[1] . '</strong>' . '</td>';
-                                                        echo '<td> ' . $rows[2] . '</td>';
-                                                        echo '<td> ' . $rows[3] . '</td>';
-                                                        echo '<td> ' . $rows[4] . '</td>';
-                                                        echo '<td> ' . $rows[5] . '</td>';
-                                                        echo '<td> ' . $rows[6] . '</td>';
-                                                        echo '<td> 
-                                                        <a id="pruebaA" onclick="mostrarTodoTelefono(' . $rows[0] . ');" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#modlUpdateTel"> 
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                                                        </svg>
-                                                        </a> 
-                                                        </td>';
-                                                        echo '</tr>';;
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                            <hr>
-                                        </div>
 
-                                        <div class="modal fade" id="modlUpdateTel">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
+                                        <div class="card-body" id="cardUsuarioIPAct" style="display: block;">
+                                            <div class="row">
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="buscarActIP" class="form-label">Usuario</label>
+                                                    <select id="buscarActIP" class="select2 form-select" style="color: black;">
+                                                        <option value="">Seleccione:</option>
+                                                        <?php
+                                                        $query = $conexion_bd->prepare("Select distinct p.Nombre_persona from empleado e 
+                                                                inner join persona p on p.idPersona = e.idPersona 
+                                                                right join concentrado con on con.idUsuario = e.idEmpleado where idEmpleado is not null;");
+                                                        $query->execute();
+                                                        $data = $query->fetchAll();
 
-                                                    <div class="modal-header">
-                                                        <h3 class="modal-title"><label id="nombreTituloTel"></label></h3>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="limpiarModalEquipoUsuario();"></button>
+                                                        foreach ($data as $valores) :
+                                                            echo '<option value="' . $valores[0] . '" style="text-transform: uppercase;">' . $valores[0] . '</option>';
+                                                            array_push($usuariosDatos, $valores);
+                                                        endforeach;
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-6" id="IPActPadre" style="display: none;">
+                                                    <label class="form-label">IP</label>
+                                                    <select id="IPAct" class="select2 form-select" style="color: black;">
+                                                        <option value="">Seleccione:</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-12">
+                                                </div>
+                                                <hr class="my-0" />
+                                                <div class="mb-3 col-md-12">
+                                                </div>
+                                                <div class="mb-3 col-md-3">
+                                                    <label for="IPActEncontrada" class="form-label">IP</label>
+                                                    <input class="form-control" type="text" id="IPActEncontrada" name="IPActEncontrada" />
+                                                </div>
+                                                <div class="mb-3 col-md-1">
+                                                    <label for="nodoRedIPAct" class="form-label">Nodo red</label>
+                                                    <input class="form-control" type="text" id="nodoRedIPAct" name="nodoRedIPAct" maxlength="5" style="color: black; text-transform:uppercase;" />
+                                                </div>
+                                                <div class="mb-3 col-md-1">
+                                                    <label for="vlanIPAct" class="form-label">VLAN</label>
+                                                    <input class="form-control" type="text" name="vlanIPAct" id="vlanIPAct" readonly />
+                                                </div>
+                                                <div class="mb-3 col-md-2">
+                                                    <label for="puertoIPAct" class="form-label">Puerto</label>
+                                                    <div style="display: flex;">
+                                                        <input class="form-control" type="text" id="puertoIPAct" name="puertoIPAct" maxlength="10" value="GE 0/0/" style="color: black; text-transform:uppercase;" />
                                                     </div>
+                                                </div>
+                                                <div class="mb-3 col-md-2">
+                                                    <label for="switchIPAct" class="form-label">Switch</label>
+                                                    <select id="switchIPAct" class="select2 form-select" style="color: black;">
+                                                        <option value=""> Seleccione: </option>
+                                                        <option value="172.33.42.3">172.33.42.3</option>
+                                                        <option value="172.33.42.4">172.33.42.4</option>
+                                                        <option value="172.33.42.5">172.33.42.5</option>
+                                                        <option value="172.33.42.6">172.33.42.6</option>
+                                                        <option value="172.33.42.7">172.33.42.7</option>
+                                                        <option value="172.33.42.10">172.33.42.10</option>
+                                                        <option value="172.33.42.11">172.33.42.11</option>
+                                                        <option value="172.33.42.13">172.33.42.13</option>
+                                                        <option value="172.33.42.14">172.33.42.14</option>
+                                                        <option value="172.33.42.15">172.33.42.15</option>
+                                                        <option value="172.33.42.21">172.33.42.21</option>
+                                                        <option value="172.33.42.26">172.33.42.26</option>
+                                                        <option value="172.33.42.27">172.33.42.27</option>
+                                                        <option value="172.33.42.28">172.33.42.28</option>
+                                                        <option value="172.33.42.29">172.33.42.29</option>
+                                                        <option value="172.33.42.30">172.33.42.30</option>
+                                                        <option value="172.33.42.254">172.33.42.254</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-3">
+                                                    <label class="form-label" for="rackIPAct">Rack</label>
+                                                    <input class="form-control" type="text" name="rackIPAct" id="rackIPAct" readonly />
+                                                </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="comentarioIPAct" class="form-label">Comentario</label>
+                                                    <input type="text" class="form-control" id="comentarioIPAct" name="comentarioIPAct" />
+                                                </div>
+                                                <div class="mb-3 col-md-6"></div>
+                                                <div class="mb-3 col-md-6" style="display: none;" id="nombreUserActDiv">
+                                                    <label for="nombreUserAct" class="form-label">Usuario</label>
+                                                    <select id="nombreUserAct" class="select2 form-select" style="color: black;">
+                                                        <option value="">Seleccione:</option>
+                                                        <?php
+                                                        $query = $conexion_bd->prepare("
+                                                        Select e.idEmpleado, p.Nombre_persona from empleado e
+                                                        inner join persona p on p.idPersona = e.idPersona
+                                                        order by p.Nombre_persona;
+                                                        ");
+                                                        $query->execute();
+                                                        $data = $query->fetchAll();
 
-                                                    <div class="modal-body">
-                                                        <div class="row">
-                                                            <div class="mb-3 col-md-6" style="display: none;">
-                                                                <input type="text" id="idconcentradoTelefonos" />
-                                                            </div>
-                                                            <div class="mb-3 col-md-6">
-                                                                <label for="modeloTel" class="form-label">Modelo</label>
-                                                                <input class="form-control" type="text" name="modeloTel" id="modeloTel" readonly />
-                                                            </div>
-                                                            <div class="mb-3 col-md-6">
-                                                                <label for="SerieTel" class="form-label">Número Serie</label>
-                                                                <input class="form-control" type="text" id="SerieTel" name="SerieTel" readonly />
-                                                            </div>
-                                                            <div class="mb-3 col-md-6">
-                                                                <label for="extTel" class="form-label">Extensión</label>
-                                                                <input class="form-control" type="text" id="extTel" name="extTel" readonly />
-                                                            </div>
-                                                            <div class="mb-3 col-md-6">
-                                                                <label class="form-label" for="userTel">Usuario</label>
-                                                                <select id="userTel" class="select2 form-select" style="color: black;">
-                                                                    <option value="0">Seleccione:</option>
-                                                                    <?php
-                                                                    $query = $conexion_bd->prepare("
-                                                                    Select e.idEmpleado, p.Nombre_persona from empleado e
-                                                                    inner join persona p on p.idPersona = e.idPersona
-                                                                    order by p.Nombre_persona;
-                                                                    ");
-                                                                    $query->execute();
-                                                                    $data = $query->fetchAll();
+                                                        foreach ($data as $valores) :
+                                                            echo '<option value="' . $valores[0] . '">' . $valores[1] . '</option>';
+                                                            array_push($usuariosDatos, $valores);
+                                                        endforeach;
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-6" style="display: none;" id="hostEquipoIpActDiv">
+                                                    <label for="hostEquipoIpAct" class="form-label">Host Name Equipo</label>
+                                                    <select id="hostEquipoIpAct" class="select2 form-select" style="color: black;">
+                                                        <option value="">Seleccione:</option>
+                                                        <?php
+                                                        $query = $conexion_bd->prepare("SELECT distinct e.idEquipo, eq.idConcentrado, d.Host_Name from equipo e
+                                                        inner join dispositivo d on d.idDispositivo= e.idDispositivo
+                                                        left join concentrado eq on eq.equipoExt = e.idEquipo
+                                                        where d.Host_Name is not null;");
+                                                        $query->execute();
+                                                        $data = $query->fetchAll();
 
-                                                                    foreach ($data as $valores) :
-                                                                        echo '<option value="' . $valores[0] . '">' . $valores[1] . '</option>';
-                                                                        array_push($usuariosDatos, $valores);
-                                                                    endforeach;
+                                                        foreach ($data as $valores) :
+                                                            echo '<option value="' . $valores[0] . '">' . $valores[2] . '</option>';
+                                                            array_push($usuariosDatos, $valores);
+                                                        endforeach;
 
-                                                                    ?>
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="comTel" class="form-label">Comentarios</label>
-                                                                <input class="form-control" type="text" id="comTel" name="comtTel" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="modal-footer" style="width: 100%;">
-                                                        <div id="pruebaEspacio" style="width: 68%;"></div>
-                                                        <button type="button" class="btn btn-secundary" onclick="actualizarTelefono();">Guardar</button>
-                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
-                                                    </div>
-
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-6" style="display: none;">
+                                                    <input type="text" class="form-control" id="idConcentradoAct" name="idConcentradoAct" />
+                                                </div>
+                                                <div class="mb-3 col-md-12">
+                                                </div>
+                                                <div class="mb-3 col-md-2" id="btnExtraUserAct" style="display: none;">
+                                                    <input type="checkbox" id="ActUserYes" name="ActUserYes" value="Yes" onclick="checkEditUserIp();">
+                                                    <label for="ActUserYes"> Cambiar Usuario</label> &nbsp;&nbsp;
+                                                </div>
+                                                <div class="mb-3 col-md-2" id="btnExtraEquipoAct" style="display: none;">
+                                                    <input type="checkbox" id="ActEquipoYes" name="ActEquipoYes" value="Yes" onclick="checkEditPCIp(1);">
+                                                    <label for="ActEquipoYes"> Cambiar Equipo</label>
+                                                </div>
+                                                <div class="mb-3 col-md-2" id="btnExtraUserAdd" style="display: none;">
+                                                    <input type="checkbox" id="AddUserSAct" name="AddUserSAct" value="Yes">
+                                                    <label for="AddUserSAct"> Agregar Usuario</label> &nbsp;&nbsp;
+                                                </div>
+                                                <div class="mb-3 col-md-2" id="btnExtraEquipoAdd" style="display: none;">
+                                                    <input type="checkbox" id="AddEquipoAct" name="AddEquipoAct" value="Yes">
+                                                    <label for="AddEquipoAct"> Agregar Equipo</label>
+                                                </div>
+                                                <div class="mt-2" id="botonesActualizarIP" style="text-align: end; display:none;">
+                                                    <!--button type="button" class="btn btn-outline-danger">Liberar IP</button-->
+                                                    <button type="submit" class="btn btn-primary" onclick="actualizarIPBD();">Actualizar</button>
+                                                    <button type="reset" class="btn btn-outline-secondary" onclick="revertirActualizarIP();">Revetir</button>
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <div class="card-body" id="cardImpresoraIPAct" style="display: none;">
+                                            <div class="row">
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="impresoraNameAct" class="form-label">Impresora</label>
+                                                    <select id="impresoraNameAct" class="select2 form-select" style="color: black;">
+                                                        <option value="">Seleccione:</option>
+                                                        <?php
+                                                        $query = $conexion_bd->prepare("SELECT distinct Comentario from concentrado con 
+                                                        where Comentario is not null and Comentario like '%rea:%';");
+                                                        $query->execute();
+                                                        $data = $query->fetchAll();
+
+                                                        foreach ($data as $valores) :
+                                                            echo '<option value="' . $valores[0] . '">' . $valores[0] . '</option>';
+                                                            array_push($usuariosDatos, $valores);
+                                                        endforeach;
+
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-6" id="IPActPadrePrint" style="display: none;">
+                                                    <label class="form-label">IP</label>
+                                                    <select id="IPAcPrintt" class="select2 form-select" style="color: black;">
+                                                        <option value="">Seleccione:</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-12">
+                                                </div>
+                                                <hr class="my-0" />
+                                                <div class="mb-3 col-md-12">
+                                                </div>
+                                                <div class="mb-3 col-md-3">
+                                                    <label for="IPActEncontradaPrint" class="form-label">IP</label>
+                                                    <input class="form-control" type="text" id="IPActEncontradaPrint" name="IPActEncontradaPrint" />
+                                                </div>
+                                                <div class="mb-3 col-md-1">
+                                                    <label for="nodoRedIPActPrint" class="form-label">Nodo red</label>
+                                                    <input class="form-control" type="text" id="nodoRedIPActPrint" name="nodoRedIPActPrint" maxlength="5" style="color: black; text-transform:uppercase;" />
+                                                </div>
+                                                <div class="mb-3 col-md-1">
+                                                    <label for="vlanIPActPrint" class="form-label">VLAN</label>
+                                                    <input class="form-control" type="text" name="vlanIPActPrint" id="vlanIPActPrint" readonly />
+                                                </div>
+                                                <div class="mb-3 col-md-2">
+                                                    <label for="puertoIPActPrint" class="form-label">Puerto</label>
+                                                    <div style="display: flex;">
+                                                        <input class="form-control" type="text" id="puertoIPActPrint" name="puertoIPActPrint" maxlength="10" value="GE 0/0/" style="color: black; text-transform:uppercase;" />
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 col-md-2">
+                                                    <label for="switchIPActPrint" class="form-label">Switch</label>
+                                                    <select id="switchIPActPrint" class="select2 form-select" style="color: black;">
+                                                        <option value=""> Seleccione: </option>
+                                                        <option value="172.33.42.3">172.33.42.3</option>
+                                                        <option value="172.33.42.4">172.33.42.4</option>
+                                                        <option value="172.33.42.5">172.33.42.5</option>
+                                                        <option value="172.33.42.6">172.33.42.6</option>
+                                                        <option value="172.33.42.7">172.33.42.7</option>
+                                                        <option value="172.33.42.10">172.33.42.10</option>
+                                                        <option value="172.33.42.11">172.33.42.11</option>
+                                                        <option value="172.33.42.13">172.33.42.13</option>
+                                                        <option value="172.33.42.14">172.33.42.14</option>
+                                                        <option value="172.33.42.15">172.33.42.15</option>
+                                                        <option value="172.33.42.21">172.33.42.21</option>
+                                                        <option value="172.33.42.26">172.33.42.26</option>
+                                                        <option value="172.33.42.27">172.33.42.27</option>
+                                                        <option value="172.33.42.28">172.33.42.28</option>
+                                                        <option value="172.33.42.29">172.33.42.29</option>
+                                                        <option value="172.33.42.30">172.33.42.30</option>
+                                                        <option value="172.33.42.254">172.33.42.254</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-3">
+                                                    <label class="form-label" for="rackIPActPrint">Rack</label>
+                                                    <input class="form-control" type="text" name="rackIPActPrint" id="rackIPActPrint" readonly />
+                                                </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="comentarioIPActPrint" class="form-label">Comentario</label>
+                                                    <input type="text" class="form-control" id="comentarioIPActPrint" name="comentarioIPActPrint" />
+                                                </div>
+                                                <div class="mb-3 col-md-6"></div>
+                                                <div class="mb-3 col-md-6" style="display: none;" id="hostEquipoIpActDivPrint">
+                                                    <label for="hostEquipoIpActPrint" class="form-label">Host Name Equipo</label>
+                                                    <select id="hostEquipoIpActPrint" class="select2 form-select" style="color: black;">
+                                                        <option value="">Seleccione:</option>
+                                                        <?php
+                                                        $query = $conexion_bd->prepare("SELECT e.idEquipo, CONCAT ('Modelo: ', de.Modelo, ' / Serie: ', d.Numero_Serie) Impresora from equipo e
+                                                        inner join tipodispositivo td on td.idTipoDispositivo= e.idTipoDispositivo
+                                                        inner join datosextrasdispositivo de on de.idDatosDispositivo= e.idDatosDispositivo
+                                                        inner join dispositivo d on d.idDispositivo= e.idDispositivo
+                                                        left join concentrado eq on eq.equipoExt = e.idEquipo
+                                                        where e.idTipoDispositivo between 16 and 19;");
+                                                        $query->execute();
+                                                        $data = $query->fetchAll();
+
+                                                        foreach ($data as $valores) :
+                                                            echo '<option value="' . $valores[0] . '">' . $valores[1] . '</option>';
+                                                            array_push($usuariosDatos, $valores);
+                                                        endforeach;
+
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-6" style="display: none;">
+                                                    <input type="text" class="form-control" id="idConcentradoActPrint" name="idConcentradoActPrint" />
+                                                </div>
+                                                <div class="mb-3 col-md-12">
+                                                </div>
+                                                <div class="mb-3 col-md-2" id="btnExtraUserAct" style="display: none;">
+                                                    <input type="checkbox" id="ActUserYes" name="ActUserYes" value="Yes" onclick="checkEditUserIp();">
+                                                    <label for="ActUserYes"> Cambiar Usuario</label> &nbsp;&nbsp;
+                                                </div>
+                                                <div class="mb-3 col-md-2" id="btnExtraEquipoAct" style="display: none;">
+                                                    <input type="checkbox" id="ActEquipoYes" name="ActEquipoYes" value="Yes" onclick="checkEditPCIp(2);">
+                                                    <label for="ActEquipoYes"> Cambiar Equipo</label>
+                                                </div>
+                                                <div class="mb-3 col-md-2" id="btnExtraUserAdd" style="display: none;">
+                                                    <input type="checkbox" id="AddUserSAct" name="AddUserSAct" value="Yes">
+                                                    <label for="AddUserSAct"> Agregar Usuario</label> &nbsp;&nbsp;
+                                                </div>
+                                                <div class="mb-3 col-md-2" id="btnExtraEquipoAdd" style="display: none;">
+                                                    <input type="checkbox" id="AddEquipoAct" name="AddEquipoAct" value="Yes">
+                                                    <label for="AddEquipoAct"> Agregar Equipo</label>
+                                                </div>
+                                                <div class="mt-2" id="botonesActualizarIPPrint" style="text-align: end; display:none;">
+                                                    <!--button type="button" class="btn btn-outline-danger">Liberar IP</button-->
+                                                    <button type="submit" class="btn btn-primary" onclick="actualizarIPBD();">Actualizar</button>
+                                                    <button type="reset" class="btn btn-outline-secondary" onclick="revertirActualizarIP();">Revetir</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

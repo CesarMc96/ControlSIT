@@ -1,4 +1,6 @@
 let userAll = [], ipAll = [];
+let IPVisitante = (document.getElementById("IPVisitante").value);
+let UsuarioEditor = document.getElementById("IDUsuarioEditor").value;
 
 window.addEventListener('load', function () {
 	$.ajax({
@@ -37,156 +39,92 @@ window.addEventListener('load', function () {
 });
 
 function cambiarBotones(opcion) {
-	limpiarActualizarUser();
-
 	switch (opcion) {
 		case 1: /*Inicio*/
-
 			var item = document.getElementById("menuCompleto");
 			if (!item.classList.contains('active')) {
 				document.getElementById("menuCompleto").classList.toggle("active");
 			}
 
 			/* Usuario */
-			document.getElementById("buscarUsuario").classList.remove("active");
 			document.getElementById("menuUsuarios").classList.remove("active");
-			document.getElementById("actualizarUsuario").classList.remove("active");
+
+			document.getElementById("buscarUsuario").classList.remove("active");
 			document.getElementById("mdlBuscarUsuario").style.display = "none";
+
+			document.getElementById("actualizarUsuario").classList.remove("active");
 			document.getElementById("mdlActualizarUsuario").style.display = "none";
-			document.getElementById("mdlAgregarUsuario").style.display = "none";
+
 			document.getElementById("agregarUsuario").classList.remove("active");
+			document.getElementById("mdlAgregarUsuario").style.display = "none";
 
 			/* Equipo */
-			document.getElementById("buscarEquipo").classList.remove("active");
 			document.getElementById("menuEquipos").classList.remove("active");
+
+			document.getElementById("buscarEquipo").classList.remove("active");
 			document.getElementById("mdlBuscarEquipo").style.display = "none";
 
 			/* IP */
-			document.getElementById("buscarIP").classList.remove("active");
 			document.getElementById("menuIPs").classList.remove("active");
+
+			document.getElementById("buscarIP").classList.remove("active");
 			document.getElementById("mdlBuscarIP").style.display = "none";
 
-			/* Agregar Ip */
 			document.getElementById("mdlAgregarIP").style.display = "none";
 			document.getElementById("agregarIP").classList.remove("active");
 
+			document.getElementById("mdlActualizarIP").style.display = "none";
+			document.getElementById("actualizarIP").classList.remove("active");
+
 			/*Telefono*/
 			document.getElementById("menuTelefonos").classList.remove("active");
+
 			document.getElementById("buscarTelefono").classList.remove("active");
 			document.getElementById("mdlBuscarTelefono").style.display = "none";
 
 			break;
 
-		case 2: /*Usuario*/
-
+		case 2: /*Buscar Usuario*/
 			document.getElementById("menuCompleto").classList.remove("active");
 
-			/* Buscar Usuario */
+			/* Usuario */
 			var item = document.getElementById("menuUsuarios");
 			if (!item.classList.contains('active')) {
 				document.getElementById("menuUsuarios").classList.toggle("active");
 			}
-			document.getElementById("buscarUsuario").classList.toggle("active");
-			document.getElementById("actualizarUsuario").classList.remove("active");
-			document.getElementById("mdlBuscarUsuario").style.display = "block";
-			document.getElementById("mdlAgregarUsuario").style.display = "none";
-			document.getElementById("agregarUsuario").classList.remove("active");
 
-			/*Actualizar Usuario*/
+			document.getElementById("buscarUsuario").classList.toggle("active");
+			document.getElementById("mdlBuscarUsuario").style.display = "block";
+
+			document.getElementById("actualizarUsuario").classList.remove("active");
 			document.getElementById("mdlActualizarUsuario").style.display = "none";
 
+			document.getElementById("agregarUsuario").classList.remove("active");
+			document.getElementById("mdlAgregarUsuario").style.display = "none";
+
 			/* Equipo */
-			document.getElementById("buscarEquipo").classList.remove("active");
 			document.getElementById("menuEquipos").classList.remove("active");
+
+			document.getElementById("buscarEquipo").classList.remove("active");
 			document.getElementById("mdlBuscarEquipo").style.display = "none";
 
 			/* IP */
-			document.getElementById("buscarIP").classList.remove("active");
 			document.getElementById("menuIPs").classList.remove("active");
+
+			document.getElementById("buscarIP").classList.remove("active");
 			document.getElementById("mdlBuscarIP").style.display = "none";
 
-			/* Agregar Ip */
 			document.getElementById("mdlAgregarIP").style.display = "none";
 			document.getElementById("agregarIP").classList.remove("active");
+
+			document.getElementById("mdlActualizarIP").style.display = "none";
+			document.getElementById("actualizarIP").classList.remove("active");
 
 			/*Telefono*/
-			document.getElementById("mdlBuscarTelefono").style.display = "none";
 			document.getElementById("menuTelefonos").classList.remove("active");
+
 			document.getElementById("buscarTelefono").classList.remove("active");
-
-			break;
-
-		case 3: /*Equipo*/
-			document.getElementById("menuCompleto").classList.remove("active");
-
-			/* Usuario */
-			document.getElementById("buscarUsuario").classList.remove("active");
-			document.getElementById("menuUsuarios").classList.remove("active");
-			document.getElementById("actualizarUsuario").classList.remove("active");
-			document.getElementById("mdlBuscarUsuario").style.display = "none";
-			document.getElementById("mdlAgregarUsuario").style.display = "none";
-			document.getElementById("agregarUsuario").classList.remove("active");
-
-			/* Equipo */
-			document.getElementById("buscarEquipo").classList.toggle("active");
-			document.getElementById("menuEquipos").classList.toggle("active");
-			document.getElementById("mdlBuscarEquipo").style.display = "block";
-
-			/* IP */
-			document.getElementById("buscarIP").classList.remove("active");
-			document.getElementById("menuIPs").classList.remove("active");
-			document.getElementById("mdlBuscarIP").style.display = "none";
-
-			/* Agregar Ip */
-			document.getElementById("mdlAgregarIP").style.display = "none";
-			document.getElementById("agregarIP").classList.remove("active");
-
-			/*Actualizar Usuario*/
-			document.getElementById("mdlActualizarUsuario").style.display = "none";
-
-			/*Buscar Telefono*/
 			document.getElementById("mdlBuscarTelefono").style.display = "none";
-			document.getElementById("menuTelefonos").classList.remove("active");
-			document.getElementById("buscarTelefono").classList.remove("active");
-
-			break;
-
-		case 4: /*IP*/
-			document.getElementById("menuCompleto").classList.remove("active");
-
-			/* Usuario */
-			document.getElementById("buscarUsuario").classList.remove("active");
-			document.getElementById("menuUsuarios").classList.remove("active");
-			document.getElementById("actualizarUsuario").classList.remove("active");
-			document.getElementById("mdlBuscarUsuario").style.display = "none";
-			document.getElementById("mdlAgregarUsuario").style.display = "none";
-			document.getElementById("agregarUsuario").classList.remove("active");
-
-			/* Equipo */
-			document.getElementById("buscarEquipo").classList.remove("active");
-			document.getElementById("menuEquipos").classList.remove("active");
-			document.getElementById("mdlBuscarEquipo").style.display = "none";
-
-			/* IP */
-			document.getElementById("buscarIP").classList.toggle("active");
-			document.getElementById("menuIPs").classList.toggle("active");
-			document.getElementById("mdlBuscarIP").style.display = "block";
-			document.getElementById("cardRed").style.display = "none";
-			document.getElementById("cardUsuario").style.display = "none";
-			limpiarIP();
-
-			/* Agregar Ip */
-			document.getElementById("mdlAgregarIP").style.display = "none";
-			document.getElementById("agregarIP").classList.remove("active");
-
-
-			/*Actualizar Usuario*/
-			document.getElementById("mdlActualizarUsuario").style.display = "none";
-
-			/*Buscar Telefono*/
-			document.getElementById("mdlBuscarTelefono").style.display = "none";
-			document.getElementById("menuTelefonos").classList.remove("active");
-			document.getElementById("buscarTelefono").classList.remove("active");
 
 			break;
 
@@ -198,153 +136,307 @@ function cambiarBotones(opcion) {
 			if (!item.classList.contains('active')) {
 				document.getElementById("menuUsuarios").classList.toggle("active");
 			}
+			limpiarActualizarUser();
+
 			document.getElementById("buscarUsuario").classList.remove("active");
 			document.getElementById("mdlBuscarUsuario").style.display = "none";
-			document.getElementById("mdlAgregarUsuario").style.display = "none";
+
 			document.getElementById("agregarUsuario").classList.remove("active");
+			document.getElementById("mdlAgregarUsuario").style.display = "none";
+
+			document.getElementById("actualizarUsuario").classList.toggle("active");
+			document.getElementById("mdlActualizarUsuario").style.display = "block";
 
 			/* Equipo */
-			document.getElementById("buscarEquipo").classList.remove("active");
 			document.getElementById("menuEquipos").classList.remove("active");
+
+			document.getElementById("buscarEquipo").classList.remove("active");
 			document.getElementById("mdlBuscarEquipo").style.display = "none";
 
 			/* IP */
-			document.getElementById("buscarIP").classList.remove("active");
 			document.getElementById("menuIPs").classList.remove("active");
+
+			document.getElementById("buscarIP").classList.remove("active");
 			document.getElementById("mdlBuscarIP").style.display = "none";
 
-			/* Agregar Ip */
 			document.getElementById("mdlAgregarIP").style.display = "none";
 			document.getElementById("agregarIP").classList.remove("active");
 
-			/*Actualizar Usuario*/
-			document.getElementById("mdlActualizarUsuario").style.display = "block";
-			document.getElementById("actualizarUsuario").classList.toggle("active");
+			document.getElementById("mdlActualizarIP").style.display = "none";
+			document.getElementById("actualizarIP").classList.remove("active");
 
-			/*Buscar Telefono*/
-			document.getElementById("mdlBuscarTelefono").style.display = "none";
+			/*Telefono*/
 			document.getElementById("menuTelefonos").classList.remove("active");
+
 			document.getElementById("buscarTelefono").classList.remove("active");
+			document.getElementById("mdlBuscarTelefono").style.display = "none";
 
 			break;
 
-		case 6: /*Buscar y Actualizar Telefono*/
+		case 7: /*Agregar Usuario*/
 			document.getElementById("menuCompleto").classList.remove("active");
 
 			/* Usuario */
-			document.getElementById("buscarUsuario").classList.remove("active");
-			document.getElementById("menuUsuarios").classList.remove("active");
-			document.getElementById("actualizarUsuario").classList.remove("active");
-			document.getElementById("mdlBuscarUsuario").style.display = "none";
-			document.getElementById("mdlAgregarUsuario").style.display = "none";
-			document.getElementById("agregarUsuario").classList.remove("active");
-
-			/* Equipo */
-			document.getElementById("buscarEquipo").classList.remove("active");
-			document.getElementById("menuEquipos").classList.remove("active");
-			document.getElementById("mdlBuscarEquipo").style.display = "none";
-
-			/* IP */
-			document.getElementById("buscarIP").classList.remove("active");
-			document.getElementById("menuIPs").classList.remove("active");
-			document.getElementById("mdlBuscarIP").style.display = "none";
-
-			/* Agregar Ip */
-			document.getElementById("mdlAgregarIP").style.display = "none";
-			document.getElementById("agregarIP").classList.remove("active");
-
-			/*Actualizar Usuario*/
-			document.getElementById("mdlActualizarUsuario").style.display = "none";
-			document.getElementById("actualizarUsuario").classList.remove("active");
-
-			/*Buscar Telefono*/
-			document.getElementById("mdlBuscarTelefono").style.display = "block";
-			document.getElementById("menuTelefonos").classList.toggle("active");
-			document.getElementById("buscarTelefono").classList.toggle("active");
-			break;
-
-		case 7: /*Usuario*/
-
-			document.getElementById("menuCompleto").classList.remove("active");
-
-			/*USUARIOS*/
 			var item = document.getElementById("menuUsuarios");
 			if (!item.classList.contains('active')) {
 				document.getElementById("menuUsuarios").classList.toggle("active");
 			}
 
-			/* Buscar Usuario */
 			document.getElementById("buscarUsuario").classList.remove("active");
 			document.getElementById("mdlBuscarUsuario").style.display = "none";
 
-			/*Agregar Ususario*/
-			document.getElementById("mdlAgregarUsuario").style.display = "block";
 			document.getElementById("agregarUsuario").classList.toggle("active");
+			document.getElementById("mdlAgregarUsuario").style.display = "block";
 
-			/*Actualizar Usuario*/
-			document.getElementById("mdlActualizarUsuario").style.display = "none";
 			document.getElementById("actualizarUsuario").classList.remove("active");
+			document.getElementById("mdlActualizarUsuario").style.display = "none";
 
 			/* Equipo */
-			document.getElementById("buscarEquipo").classList.remove("active");
 			document.getElementById("menuEquipos").classList.remove("active");
+
+			document.getElementById("buscarEquipo").classList.remove("active");
 			document.getElementById("mdlBuscarEquipo").style.display = "none";
 
 			/* IP */
-			document.getElementById("buscarIP").classList.remove("active");
 			document.getElementById("menuIPs").classList.remove("active");
+
+			document.getElementById("buscarIP").classList.remove("active");
 			document.getElementById("mdlBuscarIP").style.display = "none";
 
-			/* Agregar Ip */
 			document.getElementById("mdlAgregarIP").style.display = "none";
 			document.getElementById("agregarIP").classList.remove("active");
 
+			document.getElementById("mdlActualizarIP").style.display = "none";
+			document.getElementById("actualizarIP").classList.remove("active");
+
 			/*Telefono*/
-			document.getElementById("mdlBuscarTelefono").style.display = "none";
 			document.getElementById("menuTelefonos").classList.remove("active");
+
 			document.getElementById("buscarTelefono").classList.remove("active");
+			document.getElementById("mdlBuscarTelefono").style.display = "none";
 
 			break;
 
-		case 8: /*IP*/
+		case 3: /*Buscar Equipo*/
 			document.getElementById("menuCompleto").classList.remove("active");
 
 			/* Usuario */
-			document.getElementById("buscarUsuario").classList.remove("active");
 			document.getElementById("menuUsuarios").classList.remove("active");
-			document.getElementById("actualizarUsuario").classList.remove("active");
+
+			document.getElementById("buscarUsuario").classList.remove("active");
 			document.getElementById("mdlBuscarUsuario").style.display = "none";
-			document.getElementById("mdlAgregarUsuario").style.display = "none";
+
+			document.getElementById("actualizarUsuario").classList.remove("active");
+			document.getElementById("mdlActualizarUsuario").style.display = "none";
+
 			document.getElementById("agregarUsuario").classList.remove("active");
+			document.getElementById("mdlAgregarUsuario").style.display = "none";
 
 			/* Equipo */
-			document.getElementById("buscarEquipo").classList.remove("active");
+			var item = document.getElementById("menuEquipos");
+			if (!item.classList.contains('active')) {
+				document.getElementById("menuEquipos").classList.toggle("active");
+			}
+
+			document.getElementById("buscarEquipo").classList.toggle("active");
+			document.getElementById("mdlBuscarEquipo").style.display = "block";
+
+			/* IP */
+			document.getElementById("menuIPs").classList.remove("active");
+
+			document.getElementById("buscarIP").classList.remove("active");
+			document.getElementById("mdlBuscarIP").style.display = "none";
+
+			document.getElementById("mdlAgregarIP").style.display = "none";
+			document.getElementById("agregarIP").classList.remove("active");
+
+			document.getElementById("mdlActualizarIP").style.display = "none";
+			document.getElementById("actualizarIP").classList.remove("active");
+
+			/*Telefono*/
+			document.getElementById("menuTelefonos").classList.remove("active");
+
+			document.getElementById("buscarTelefono").classList.remove("active");
+			document.getElementById("mdlBuscarTelefono").style.display = "none";
+
+			break;
+
+		case 6: /*Buscar Telefono*/
+			document.getElementById("menuCompleto").classList.remove("active");
+
+			/* Usuario */
+			document.getElementById("menuUsuarios").classList.remove("active");
+
+			document.getElementById("buscarUsuario").classList.remove("active");
+			document.getElementById("mdlBuscarUsuario").style.display = "none";
+
+			document.getElementById("actualizarUsuario").classList.remove("active");
+			document.getElementById("mdlActualizarUsuario").style.display = "none";
+
+			document.getElementById("agregarUsuario").classList.remove("active");
+			document.getElementById("mdlAgregarUsuario").style.display = "none";
+
+			/* Equipo */
 			document.getElementById("menuEquipos").classList.remove("active");
+
+			document.getElementById("buscarEquipo").classList.remove("active");
 			document.getElementById("mdlBuscarEquipo").style.display = "none";
 
 			/* IP */
+			document.getElementById("menuIPs").classList.remove("active");
+
 			document.getElementById("buscarIP").classList.remove("active");
+			document.getElementById("mdlBuscarIP").style.display = "none";
+
+			document.getElementById("mdlAgregarIP").style.display = "none";
+			document.getElementById("agregarIP").classList.remove("active");
+
+			document.getElementById("mdlActualizarIP").style.display = "none";
+			document.getElementById("actualizarIP").classList.remove("active");
+
+			/*Telefono*/
+			var item = document.getElementById("menuTelefonos");
+			if (!item.classList.contains('active')) {
+				document.getElementById("menuTelefonos").classList.toggle("active");
+			}
+			document.getElementById("buscarTelefono").classList.toggle("active");
+			document.getElementById("mdlBuscarTelefono").style.display = "block";
+
+			break;
+
+		case 4: /*Buscar IP*/
+			document.getElementById("menuCompleto").classList.remove("active");
+
+			//* Usuario */
+			document.getElementById("menuUsuarios").classList.remove("active");
+
+			document.getElementById("buscarUsuario").classList.remove("active");
+			document.getElementById("mdlBuscarUsuario").style.display = "none";
+
+			document.getElementById("actualizarUsuario").classList.remove("active");
+			document.getElementById("mdlActualizarUsuario").style.display = "none";
+
+			document.getElementById("agregarUsuario").classList.remove("active");
+			document.getElementById("mdlAgregarUsuario").style.display = "none";
+
+			/* Equipo */
+			document.getElementById("menuEquipos").classList.remove("active");
+
+			document.getElementById("buscarEquipo").classList.remove("active");
+			document.getElementById("mdlBuscarEquipo").style.display = "none";
+
+			/* IP */
+			limpiarIP();
 			var item = document.getElementById("menuIPs");
 			if (!item.classList.contains('active')) {
 				document.getElementById("menuIPs").classList.toggle("active");
 			}
-			document.getElementById("mdlBuscarIP").style.display = "none";
+			document.getElementById("buscarIP").classList.toggle("active");
+			document.getElementById("mdlBuscarIP").style.display = "block";
+
 			document.getElementById("cardRed").style.display = "none";
 			document.getElementById("cardUsuario").style.display = "none";
 
-			/* Agregar Ip */
+			document.getElementById("mdlAgregarIP").style.display = "none";
+			document.getElementById("agregarIP").classList.remove("active");
+
+			document.getElementById("mdlActualizarIP").style.display = "none";
+			document.getElementById("actualizarIP").classList.remove("active");
+
+			/*Telefono*/
+			document.getElementById("menuTelefonos").classList.remove("active");
+
+			document.getElementById("buscarTelefono").classList.remove("active");
+			document.getElementById("mdlBuscarTelefono").style.display = "none";
+
+			break;
+
+		case 9: /*Actualizar IP*/
+			document.getElementById("menuCompleto").classList.remove("active");
+
+			//* Usuario */
+			document.getElementById("menuUsuarios").classList.remove("active");
+
+			document.getElementById("buscarUsuario").classList.remove("active");
+			document.getElementById("mdlBuscarUsuario").style.display = "none";
+
+			document.getElementById("actualizarUsuario").classList.remove("active");
+			document.getElementById("mdlActualizarUsuario").style.display = "none";
+
+			document.getElementById("agregarUsuario").classList.remove("active");
+			document.getElementById("mdlAgregarUsuario").style.display = "none";
+
+			/* Equipo */
+			document.getElementById("menuEquipos").classList.remove("active");
+
+			document.getElementById("buscarEquipo").classList.remove("active");
+			document.getElementById("mdlBuscarEquipo").style.display = "none";
+
+			/* IP */
+			var item = document.getElementById("menuIPs");
+			if (!item.classList.contains('active')) {
+				document.getElementById("menuIPs").classList.toggle("active");
+			}
+			document.getElementById("buscarIP").classList.remove("active");
+			document.getElementById("mdlBuscarIP").style.display = "none";
+
+			document.getElementById("agregarIP").classList.remove("active");
+			document.getElementById("mdlAgregarIP").style.display = "none";
+
+			document.getElementById("actualizarIP").classList.toggle("active");
+			document.getElementById("mdlActualizarIP").style.display = "block";
+
+			/*Telefono*/
+			document.getElementById("menuTelefonos").classList.remove("active");
+
+			document.getElementById("buscarTelefono").classList.remove("active");
+			document.getElementById("mdlBuscarTelefono").style.display = "none";
+
+			break;
+
+		case 8: /*Agregar IP*/
+			document.getElementById("menuCompleto").classList.remove("active");
+
+			//* Usuario */
+			document.getElementById("menuUsuarios").classList.remove("active");
+
+			document.getElementById("buscarUsuario").classList.remove("active");
+			document.getElementById("mdlBuscarUsuario").style.display = "none";
+
+			document.getElementById("actualizarUsuario").classList.remove("active");
+			document.getElementById("mdlActualizarUsuario").style.display = "none";
+
+			document.getElementById("agregarUsuario").classList.remove("active");
+			document.getElementById("mdlAgregarUsuario").style.display = "none";
+
+			/* Equipo */
+			document.getElementById("menuEquipos").classList.remove("active");
+
+			document.getElementById("buscarEquipo").classList.remove("active");
+			document.getElementById("mdlBuscarEquipo").style.display = "none";
+
+			/* IP */
+			var item = document.getElementById("menuIPs");
+			if (!item.classList.contains('active')) {
+				document.getElementById("menuIPs").classList.toggle("active");
+			}
+
+			document.getElementById("buscarIP").classList.remove("active");
+			document.getElementById("mdlBuscarIP").style.display = "none";
+
+			document.getElementById("agregarIP").classList.toggle("active")
 			document.getElementById("mdlAgregarIP").style.display = "block";
-			document.getElementById("agregarIP").classList.toggle("active");
+
+			document.getElementById("actualizarIP").classList.remove("active");
+			document.getElementById("mdlActualizarIP").style.display = "none";
 
 			limpiarIP();
 
-			/*Actualizar Usuario*/
-			document.getElementById("mdlActualizarUsuario").style.display = "none";
-
-			/*Buscar Telefono*/
-			document.getElementById("mdlBuscarTelefono").style.display = "none";
+			/*Telefono*/
 			document.getElementById("menuTelefonos").classList.remove("active");
+
 			document.getElementById("buscarTelefono").classList.remove("active");
+			document.getElementById("mdlBuscarTelefono").style.display = "none";
 
 			break;
 
@@ -353,159 +445,10 @@ function cambiarBotones(opcion) {
 	}
 }
 
-function mostrarTodoTelefono(idtelefono) {
-	$.ajax({
-		type: "POST",
-		url: "http://172.29.60.126/SIT/apiSIT/api/telefono/single_read.php?idconcentradoTelefonos=" + idtelefono,
-		async: false,
-		success: function (response) {
-
-			document.getElementById("nombreTituloTel").innerHTML = response.ipTelefono;
-			document.getElementById("extTel").value = response.Extension;
-			document.getElementById("modeloTel").value = response.Modelo;
-			document.getElementById("SerieTel").value = response.Numero_Serie;
-			document.getElementById("userTel").value = response.Nombre_persona;
-			document.getElementById("idconcentradoTelefonos").value = response.idconcentradoTelefonos;
-			document.getElementById("comTel").value = response.Comentarios;
-
-			var personaBuscar = response.Nombre_persona;
-			var selectUser = document.getElementById('userTel');
-			for (var i = 1; i < selectUser.length; i++) {
-				if (selectUser.options[i].text == personaBuscar) {
-					selectUser.selectedIndex = i;
-				}
-			}
-			/*
-						"idconcentradoTelefonos": 2,
-				"ipTelefono": "172.31.60.32",
-				"Marca": "HUAWEI",
-				"Modelo": "eSpace 7950",
-				"Extension": "5503150",
-				"Numero_Serie": "2150081737BTF1003509",
-				"Nombre_persona": null
-				
-						mostrarMonitor(idEquipo);
-						
-						<div class="modal-body">
-																	<div class="row">
-																		<div class="mb-3 col-md-6">
-																			<label for="modeloTel" class="form-label">Modelo</label>
-																			<input class="form-control" type="text" name="modeloTel" id="modeloTel" readonly />
-																		</div>
-																		<div class="mb-3 col-md-6">
-																			<label for="SerieTel" class="form-label">Número Serie</label>
-																			<input class="form-control" type="text" id="SerieTel" name="SerieTel" readonly />
-																		</div>
-																		<div class="mb-3 col-md-6">
-																			<label for="extTel" class="form-label">Extensión</label>
-																			<input class="form-control" type="text" id="eextTelmail" name="extTel" readonly />
-																		</div>
-																		<div class="mb-3 col-md-6">
-																			<label class="form-label" for="userTel">Usuario</label>
-																			<input type="text" id="userTel" name="userTel" class="form-control" readonly />
-																		</div>
-																	</div>
-																</div>
-			
-						
-						*/
-		}
-	});
-}
-
-function actualizarTelefono() {
-	let idconcentradoTelefonos = document.getElementById("idconcentradoTelefonos").value;
-	let userTel = document.getElementById("userTel").value;
-	let comTel = document.getElementById("comTel").value;
-
-	if (userTel == 0) {
-		userTel = 0;
-	}
-
-	params = {
-		"idconcentradoTelefonos": idconcentradoTelefonos,
-		"idEmpleado": userTel,
-		"Comentarios": comTel
-	}
-
-	params = JSON.stringify(params);
-
-	$.ajax({
-		url: 'http://172.29.60.126/SIT/apiSIT/api/telefono/update.php',
-		type: 'POST',
-		data: params,
-		async: false,
-		contentType: 'application/json',
-		dataType: 'text',
-		success: function (respuesta) {
-			if (respuesta == "Telefono actualizado con exito.") {
-				Swal.fire({
-					title: 'Teléfono actualizado con éxito',
-					icon: 'success'
-				}).then(function () {
-					location.reload(true);
-				});
-
-			} else {
-				Swal.fire({
-					icon: 'error',
-					title: 'Error al intentar actualizar el teléfono.',
-				})
-				return false;
-			}
-		},
-		error: function (error) {
-			console.error("No es posible completar la operación");
-			alert("No es posible completar la operación, intentarlo mas tarde.");
-			return false;
-		}
-	});
-}
-
-
-/*EQUIPOS*/
-function mostrarTodoEquipo(idEquipo) {
-	console.log("Total - " + document.querySelectorAll('#nodoPadre').length);
-	let nodosEl = document.querySelectorAll('#nodoPadre')
-
-	for (let index = 0; index < nodosEl.length; index++) {
-		console.log("Empieza - " + document.querySelectorAll('#nodoPadre').length);
-		var parrafo = document.getElementById("mdlEquiMon");
-		var monitor = document.getElementById("nodoPadre");
-		parrafo.removeChild(monitor);
-		console.log("Quedan - " + document.querySelectorAll('#nodoPadre').length);
-	}
-
-	$.ajax({
-		type: "POST",
-		url: "http://172.29.60.126/SIT/apiSIT/api/equipo/readMonitores.php?idEquipo=" + idEquipo,
-		async: false,
-		success: function (response) {
-			for (let i = 0; i < response.length; i++) {
-				document.getElementById("mdlEquiMon").innerHTML += '<div class="mb-3 col-md-6" id="nodoPadre"> <label for="monitor" class="form-label">Monitor</label> <input class="form-control" type="text" name="monitor" id="monitor" value="' + response[i].Monitor + '" readonly /> </div>';
-			}
-		}
-	});
-
-	$.ajax({
-		type: "POST",
-		url: "http://172.29.60.126/SIT/apiSIT/api/equipo/single_read.php?idEquipo=" + idEquipo,
-		async: false,
-		success: function (response) {
-			document.getElementById("nombreTituloEquipo").innerHTML = response.Nombre + " - " + response.Descripcion;
-			document.getElementById("hostname").value = response.Host_Name;
-			document.getElementById("modelo").value = response.Modelo;
-			document.getElementById("numSerie").value = response.Numero_Serie;
-			document.getElementById("marca").value = response.Marca;
-			document.getElementById("ups").value = response.UPS_Serie;
-		}
-	});
-}
-
 /*USUARIOS*/
 let emailrever, usuariorever, idEmpleadorever, idEmrever, curprever, puestoBuscar, areaBuscar, gerenciaBuscar;
 var select = document.getElementById('nombreCompleto');
-$(nombreCompleto).select2();
+$('#nombreCompleto').select2();
 
 function mostrarTodoUsuario(idEmpleado) {
 	$.ajax({
@@ -552,14 +495,33 @@ $(select).on('change', function (e) {
 		type: "POST",
 		url: "http://172.29.60.126/SIT/apiSIT/api/empleado/single_read.php?idEmpleado=" + valorSeleccionado,
 		success: function (response) {
-			emailrever = document.getElementById("emailA").value = response.Correo_Conagua;
-			usuariorever = document.getElementById("usuarioA").value = response.Usuario_Conagua;
-			idEmpleadorever = document.getElementById("idEmpleadoA").value = response.Id_empleado;
-			curprever = document.getElementById("curpA").value = response.CURP;
-			nombrerever = document.getElementById("nombreCompletoA").value = response.Nombre_persona;
-			puestoBuscar = response.NombrePuesto;
-			areaBuscar = response.NombreArea;
-			gerenciaBuscar = response.NombreGerencia;
+			if (response.length != undefined) {
+				emailrever = document.getElementById("emailA").value = response[0].Correo_Conagua;
+				usuariorever = document.getElementById("usuarioA").value = response[0].Usuario_Conagua;
+				idEmpleadorever = document.getElementById("idEmpleadoA").value = response[0].Id_empleado;
+				curprever = document.getElementById("curpA").value = response[0].CURP;
+				nombrerever = document.getElementById("nombreCompletoA").value = response[0].Nombre_persona;
+				puestoBuscar = response[0].NombrePuesto;
+				areaBuscar = response[0].NombreArea;
+				gerenciaBuscar = response[0].NombreGerencia;
+
+				document.getElementById("idUC").value = response[0].idUsuarioConagua;
+				document.getElementById("idEmC").value = response[0].idEmpleado;
+				document.getElementById("idPer").value = response[0].idPersona;
+			} else {
+				emailrever = document.getElementById("emailA").value = response.Correo_Conagua;
+				usuariorever = document.getElementById("usuarioA").value = response.Usuario_Conagua;
+				idEmpleadorever = document.getElementById("idEmpleadoA").value = response.Id_empleado;
+				curprever = document.getElementById("curpA").value = response.CURP;
+				nombrerever = document.getElementById("nombreCompletoA").value = response.Nombre_persona;
+				puestoBuscar = response.NombrePuesto;
+				areaBuscar = response.NombreArea;
+				gerenciaBuscar = response.NombreGerencia;
+
+				document.getElementById("idUC").value = response.idUsuarioConagua;
+				document.getElementById("idEmC").value = response.idEmpleado;
+				document.getElementById("idPer").value = response.idPersona;
+			}
 
 			var selectPuesto = document.getElementById('puestoA');
 			selectPuesto.removeAttribute('disabled');
@@ -585,10 +547,6 @@ $(select).on('change', function (e) {
 				}
 			}
 
-			document.getElementById("idUC").value = response.idUsuarioConagua;
-			document.getElementById("idEmC").value = response.idEmpleado;
-			document.getElementById("idPer").value = response.idPersona;
-
 			$("#emailA").attr("readonly", false);
 			$("#usuarioA").attr("readonly", false);
 			$("#idEmpleadoA").attr("readonly", false);
@@ -597,7 +555,7 @@ $(select).on('change', function (e) {
 		}
 	});
 
-	document.getElementById("botonesActualizar").style.display = "block";
+	document.getElementById("botonesActualizar").style.display = "flex";
 });
 
 function limpiarActualizarUser() {
@@ -620,6 +578,9 @@ function limpiarActualizarUser() {
 	area.value = "";
 	gerencia.value = "";
 	puesto.value = "";
+
+	document.getElementById("nombreCompleto").value = "";
+	document.getElementById("select2-nombreCompleto-container").innerHTML = "Selecione:";
 }
 
 function actualizarUsuarioBD() {
@@ -701,6 +662,23 @@ function actualizarUsuarioBD() {
 					dataType: 'text',
 					success: function (respuesta) {
 						if (respuesta == "Usuario actualizado con exito.") {
+							paramsBitacora = {
+								"idUsuario": UsuarioEditor,
+								"IPConexion": IPVisitante,
+								"TipoOperacion": 4
+							}
+
+							paramsBitacora = JSON.stringify(paramsBitacora);
+
+							$.ajax({
+								url: 'http://172.29.60.126/SIT/apiSIT/api/bitacora/create.php',
+								type: 'POST',
+								data: paramsBitacora,
+								async: false,
+								contentType: 'application/json',
+								dataType: 'text'
+							});
+
 							Swal.fire({
 								title: 'Usuario actualizado con éxito',
 								icon: 'success'
@@ -975,6 +953,23 @@ function guardarUsuarioBD() {
 					dataType: 'text',
 					success: function (respuesta) {
 						if (respuesta == "Usuario creado exitosamente.") {
+							paramsBitacora = {
+								"idUsuario": UsuarioEditor,
+								"IPConexion": IPVisitante,
+								"TipoOperacion": 2
+							}
+
+							paramsBitacora = JSON.stringify(paramsBitacora);
+
+							$.ajax({
+								url: 'http://172.29.60.126/SIT/apiSIT/api/bitacora/create.php',
+								type: 'POST',
+								data: paramsBitacora,
+								async: false,
+								contentType: 'application/json',
+								dataType: 'text'
+							});
+
 							Swal.fire({
 								title: 'Usuario registrado con éxito',
 								icon: 'success'
@@ -1012,6 +1007,155 @@ function limpiarUsuarioNew() {
 	document.getElementById("usuarioNew").value = "";
 	document.getElementById("curpNew").value = "";
 	document.getElementById("nombreCompletoNew").value = "";
+}
+
+/*TELEFONO*/
+function mostrarTodoTelefono(idtelefono) {
+	$.ajax({
+		type: "POST",
+		url: "http://172.29.60.126/SIT/apiSIT/api/telefono/single_read.php?idconcentradoTelefonos=" + idtelefono,
+		async: false,
+		success: function (response) {
+
+			document.getElementById("nombreTituloTel").innerHTML = response.ipTelefono;
+			document.getElementById("extTel").value = response.Extension;
+			document.getElementById("modeloTel").value = response.Modelo;
+			document.getElementById("SerieTel").value = response.Numero_Serie;
+			document.getElementById("userTel").value = response.Nombre_persona;
+			document.getElementById("idconcentradoTelefonos").value = response.idconcentradoTelefonos;
+			document.getElementById("comTel").value = response.Comentarios;
+
+			var personaBuscar = response.Nombre_persona;
+			var selectUser = document.getElementById('userTel');
+			for (var i = 1; i < selectUser.length; i++) {
+				if (selectUser.options[i].text == personaBuscar) {
+					selectUser.selectedIndex = i;
+				}
+			}
+			/*
+						"idconcentradoTelefonos": 2,
+				"ipTelefono": "172.31.60.32",
+				"Marca": "HUAWEI",
+				"Modelo": "eSpace 7950",
+				"Extension": "5503150",
+				"Numero_Serie": "2150081737BTF1003509",
+				"Nombre_persona": null
+				
+						mostrarMonitor(idEquipo);
+						
+						<div class="modal-body">
+																	<div class="row">
+																		<div class="mb-3 col-md-6">
+																			<label for="modeloTel" class="form-label">Modelo</label>
+																			<input class="form-control" type="text" name="modeloTel" id="modeloTel" readonly />
+																		</div>
+																		<div class="mb-3 col-md-6">
+																			<label for="SerieTel" class="form-label">Número Serie</label>
+																			<input class="form-control" type="text" id="SerieTel" name="SerieTel" readonly />
+																		</div>
+																		<div class="mb-3 col-md-6">
+																			<label for="extTel" class="form-label">Extensión</label>
+																			<input class="form-control" type="text" id="eextTelmail" name="extTel" readonly />
+																		</div>
+																		<div class="mb-3 col-md-6">
+																			<label class="form-label" for="userTel">Usuario</label>
+																			<input type="text" id="userTel" name="userTel" class="form-control" readonly />
+																		</div>
+																	</div>
+																</div>
+			
+						
+						*/
+		}
+	});
+}
+
+function actualizarTelefono() {
+	let idconcentradoTelefonos = document.getElementById("idconcentradoTelefonos").value;
+	let userTel = document.getElementById("userTel").value;
+	let comTel = document.getElementById("comTel").value;
+
+	if (userTel == 0) {
+		userTel = 0;
+	}
+
+	params = {
+		"idconcentradoTelefonos": idconcentradoTelefonos,
+		"idEmpleado": userTel,
+		"Comentarios": comTel
+	}
+
+	params = JSON.stringify(params);
+
+	$.ajax({
+		url: 'http://172.29.60.126/SIT/apiSIT/api/telefono/update.php',
+		type: 'POST',
+		data: params,
+		async: false,
+		contentType: 'application/json',
+		dataType: 'text',
+		success: function (respuesta) {
+			if (respuesta == "Telefono actualizado con exito.") {
+				Swal.fire({
+					title: 'Teléfono actualizado con éxito',
+					icon: 'success'
+				}).then(function () {
+					location.reload(true);
+				});
+
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Error al intentar actualizar el teléfono.',
+				})
+				return false;
+			}
+		},
+		error: function (error) {
+			console.error("No es posible completar la operación");
+			alert("No es posible completar la operación, intentarlo mas tarde.");
+			return false;
+		}
+	});
+}
+
+/*EQUIPOS*/
+function mostrarTodoEquipo(idEquipo) {
+	console.log("Total - " + document.querySelectorAll('#nodoPadre').length);
+	let nodosEl = document.querySelectorAll('#nodoPadre')
+
+	for (let index = 0; index < nodosEl.length; index++) {
+		console.log("Empieza - " + document.querySelectorAll('#nodoPadre').length);
+		var parrafo = document.getElementById("mdlEquiMon");
+		var monitor = document.getElementById("nodoPadre");
+		parrafo.removeChild(monitor);
+		console.log("Quedan - " + document.querySelectorAll('#nodoPadre').length);
+	}
+
+	$.ajax({
+		type: "POST",
+		url: "http://172.29.60.126/SIT/apiSIT/api/equipo/readMonitores.php?idEquipo=" + idEquipo,
+		async: false,
+		success: function (response) {
+			for (let i = 0; i < response.length; i++) {
+				document.getElementById("mdlEquiMon").innerHTML += '<div class="mb-3 col-md-6" id="nodoPadre"> <label for="monitor" class="form-label">Monitor</label> <input class="form-control" type="text" name="monitor" id="monitor" value="' + response[i].Monitor + '" readonly /> </div>';
+			}
+		}
+	});
+
+	$.ajax({
+		type: "POST",
+		url: "http://172.29.60.126/SIT/apiSIT/api/equipo/single_read.php?idEquipo=" + idEquipo,
+		async: false,
+		success: function (response) {
+			document.getElementById("nombreTituloEquipo").innerHTML = response.Nombre + " - " + response.Descripcion;
+			document.getElementById("hostname").value = response.Host_Name;
+			document.getElementById("modelo").value = response.Modelo;
+			document.getElementById("numSerie").value = response.Numero_Serie;
+			document.getElementById("marca").value = response.Marca;
+			document.getElementById("ups").value = response.UPS_Serie;
+		}
+	});
 }
 
 /*IP*/
@@ -1056,6 +1200,56 @@ function tipoIPAgregar(opcion) {
 			var item = document.getElementById("IPServerAdd");
 			if (!item.classList.contains('active')) {
 				document.getElementById("IPServerAdd").classList.toggle("active");
+			}
+
+			break;
+
+		default:
+			break;
+	}
+}
+
+function tipoIPActualizar(opcion) {
+	switch (opcion) {
+		case 1:
+			document.getElementById("cardUsuarioIPAct").style.display = "block";
+			var item = document.getElementById("IPUseract");
+			if (!item.classList.contains('active')) {
+				document.getElementById("IPUseract").classList.toggle("active");
+			}
+
+			document.getElementById("cardImpresoraIPAct").style.display = "none";
+			document.getElementById("IPPrinteract").classList.remove("active");
+
+			document.getElementById("cardServerIPAct").style.display = "none";
+			document.getElementById("IPServeract").classList.remove("active");
+			break;
+
+		case 2:
+			document.getElementById("cardUsuarioIPAct").style.display = "none";
+			document.getElementById("IPUseract").classList.remove("active");
+
+			document.getElementById("cardImpresoraIPAct").style.display = "block";
+			var item = document.getElementById("IPUseract");
+			if (!item.classList.contains('active')) {
+				document.getElementById("IPPrinteract").classList.toggle("active");
+			}
+
+			document.getElementById("cardServerIPAct").style.display = "none";
+			document.getElementById("IPServeract").classList.remove("active");
+			break;
+
+		case 3:
+			document.getElementById("cardUsuarioIPAct").style.display = "none";
+			document.getElementById("IPUseract").classList.remove("active");
+
+			document.getElementById("cardImpresoraIPAct").style.display = "none";
+			document.getElementById("IPPrinteract").classList.remove("active");
+
+			document.getElementById("cardServerIPAct").style.display = "block";
+			var item = document.getElementById("IPServeract");
+			if (!item.classList.contains('active')) {
+				document.getElementById("IPServeract").classList.toggle("active");
 			}
 
 			break;
@@ -1308,6 +1502,57 @@ $(switchIPNewServer).on('change', function (e) {
 	}
 });
 
+$('#IPActEncontrada').blur(function () {
+	let ipnew = document.getElementById("IPActEncontrada");
+
+	for (let index = 0; index < ipAll.length; index++) {
+		if (ipnew.value == ipAll[index]) {
+			if (IPActEncontradarever != ipnew.value) {
+				Swal.fire({
+					icon: 'error',
+					title: 'La IP ingresada ya está ocupada.',
+				})
+				ipnew.style.color = "red";
+				index = ipAll.length - 1;
+			}
+		} else {
+			let obtenerVLAN = ipnew.value.split(".");
+			document.getElementById("vlanIPAct").value = obtenerVLAN[2];
+			ipnew.style.color = "black";
+		}
+	}
+});
+
+$(switchIPAct).on('change', function (e) {
+	let switchSeleccionado = document.getElementById("switchIPAct").value;
+
+	switch (switchSeleccionado) {
+		case "172.33.42.3": case "172.33.42.4": case "172.33.42.5": case "172.33.42.6": case "172.33.42.10": case "172.33.42.11": case "172.33.42.27":
+			document.getElementById("rackIPAct").value = "CUARTO FRIO";
+			break;
+		case "172.33.42.13": case "172.33.42.14": case "172.33.42.15":
+			document.getElementById("rackIPAct").value = "MONITOREO ATMOSFÉRICO DATOS";
+			break;
+		case "172.33.42.21":
+			document.getElementById("rackIPAct").value = "SALA DIRECTORADO ";
+			break;
+		case "172.33.42.26":
+			document.getElementById("rackIPAct").value = "CONMUTADOR";
+			break;
+		case "172.33.42.28": case "172.33.42.29":
+			document.getElementById("rackIPAct").value = "ADMINISTRATIVO";
+			break;
+		case "172.33.42.30":
+			document.getElementById("rackIPAct").value = "CAPACITACIÓN";
+			break;
+		case "172.33.42.254":
+			document.getElementById("rackIPAct").value = "SW CORE";
+			break;
+		default:
+			break;
+	}
+});
+
 function guardarIPUserBD() {
 	let nombreCompletoIPNew = document.getElementById("nombreCompletoIPNew").value;
 	let hostEquipoIpNew = document.getElementById("hostEquipoIpNew").value;
@@ -1368,6 +1613,23 @@ function guardarIPUserBD() {
 					dataType: 'text',
 					success: function (respuesta) {
 						if (respuesta == "IP creada exitosamente.") {
+							paramsBitacora = {
+								"idUsuario": UsuarioEditor,
+								"IPConexion": IPVisitante,
+								"TipoOperacion": 8
+							}
+
+							paramsBitacora = JSON.stringify(paramsBitacora);
+
+							$.ajax({
+								url: 'http://172.29.60.126/SIT/apiSIT/api/bitacora/create.php',
+								type: 'POST',
+								data: paramsBitacora,
+								async: false,
+								contentType: 'application/json',
+								dataType: 'text'
+							});
+
 							Swal.fire({
 								title: 'IP registrada con éxito',
 								icon: 'success'
@@ -1473,6 +1735,23 @@ function guardarIPPrintBD() {
 					dataType: 'text',
 					success: function (respuesta) {
 						if (respuesta == "IP creada exitosamente.") {
+							paramsBitacora = {
+								"idUsuario": UsuarioEditor,
+								"IPConexion": IPVisitante,
+								"TipoOperacion": 8
+							}
+
+							paramsBitacora = JSON.stringify(paramsBitacora);
+
+							$.ajax({
+								url: 'http://172.29.60.126/SIT/apiSIT/api/bitacora/create.php',
+								type: 'POST',
+								data: paramsBitacora,
+								async: false,
+								contentType: 'application/json',
+								dataType: 'text'
+							});
+
 							Swal.fire({
 								title: 'IP registrada con éxito',
 								icon: 'success'
@@ -1555,6 +1834,23 @@ function guardarIPServerBD() {
 					dataType: 'text',
 					success: function (respuesta) {
 						if (respuesta == "IP creada exitosamente.") {
+							paramsBitacora = {
+								"idUsuario": UsuarioEditor,
+								"IPConexion": IPVisitante,
+								"TipoOperacion": 8
+							}
+
+							paramsBitacora = JSON.stringify(paramsBitacora);
+
+							$.ajax({
+								url: 'http://172.29.60.126/SIT/apiSIT/api/bitacora/create.php',
+								type: 'POST',
+								data: paramsBitacora,
+								async: false,
+								contentType: 'application/json',
+								dataType: 'text'
+							});
+
 							Swal.fire({
 								title: 'IP registrada con éxito',
 								icon: 'success'
@@ -1583,57 +1879,384 @@ function guardarIPServerBD() {
 	}
 }
 
+let ipsParaActualizar = {};
 $('#buscarActIP').on('change', function (e) {
-	console.log(document.getElementById('buscarActIP').value);
-/*
+	limpiarActualizarIP();
+
+	let valorBuscar = document.getElementById('buscarActIP').value;
+
 	$.ajax({
 		type: "POST",
-		url: "http://172.29.60.126/SIT/apiSIT/api/empleado/single_read.php?idEmpleado=" + valorSeleccionado,
+		url: "http://172.29.60.126/SIT/apiSIT/api/concentrado/buscarIPEdit.php?Comentario=" + valorBuscar + "",
 		success: function (response) {
-			emailrever = document.getElementById("emailA").value = response.Correo_Conagua;
-			usuariorever = document.getElementById("usuarioA").value = response.Usuario_Conagua;
-			idEmpleadorever = document.getElementById("idEmpleadoA").value = response.Id_empleado;
-			curprever = document.getElementById("curpA").value = response.CURP;
-			nombrerever = document.getElementById("nombreCompletoA").value = response.Nombre_persona;
-			puestoBuscar = response.NombrePuesto;
-			areaBuscar = response.NombreArea;
-			gerenciaBuscar = response.NombreGerencia;
+			if (response.length == 1) {
+				console.log(response);
+				document.getElementById("IPActPadre").style.display = "none";
+				IPActEncontradarever = document.getElementById("IPActEncontrada").value = response[0].IP;
+				nodoRedIPActrever = document.getElementById("nodoRedIPAct").value = response[0].Nodo_red;
+				vlanIPActrever = document.getElementById("vlanIPAct").value = response[0].VLAN;
+				puertoIPActrever = document.getElementById("puertoIPAct").value = response[0].Puerto_Switch;
+				switchIPActrever = document.getElementById("switchIPAct").value = response[0].Switch;
+				rackIPActrever = document.getElementById("rackIPAct").value = response[0].Rack;
+				comentarioIPActrever = document.getElementById("comentarioIPAct").value = response[0].Comentario;
+				idConcentradoAct = document.getElementById("idConcentradoAct").value = response[0].idConcentrado;
 
-			var selectPuesto = document.getElementById('puestoA');
-			selectPuesto.removeAttribute('disabled');
-			for (var i = 1; i < selectPuesto.length; i++) {
-				if (selectPuesto.options[i].text == puestoBuscar) {
-					selectPuesto.selectedIndex = i;
-				}
+				document.getElementById("botonesActualizarIP").style.display = "block";
+				document.getElementById("btnExtraUserAct").style.display = "block";
+				document.getElementById("btnExtraEquipoAct").style.display = "block";
+				/*
+			if (response[0].idUsuario != null && IPActEncontradarever.search("Área: ") == -1) {
+				document.getElementById("btnExtraUserAct").style.display = "block";
+			} else {
+				document.getElementById("btnExtraUserAdd").style.display = "none";
 			}
 
-			var selectArea = document.getElementById('areaA');
-			selectArea.removeAttribute('disabled');
-			for (var i = 1; i < selectArea.length; i++) {
-				if (selectArea.options[i].text == areaBuscar) {
-					selectArea.selectedIndex = i;
+			if (response[0].equipoExt != null) {
+				document.getElementById("btnExtraEquipoAct").style.display = "block";
+			} else {
+				document.getElementById("btnExtraEquipoAdd").style.display = "none";
+			}
+*/
+				document.getElementById('nombreUserAct').value = response[0].idUsuario;
+				document.getElementById('hostEquipoIpAct').value = response[0].equipoExt;
+
+			} else {
+				document.getElementById("IPActPadre").style.display = "block";
+				ipsParaActualizar = response;
+				$("#IPAct").empty();
+
+				let optionVacia = document.createElement("option");
+				optionVacia.setAttribute("value", "");
+				let optionVaciaTexto = document.createTextNode("Seleccione:");
+				optionVacia.appendChild(optionVaciaTexto);
+				document.getElementById('IPAct').appendChild(optionVacia);
+
+				for (let i = 0; i < response.length; i++) {
+					let option = document.createElement("option");
+					option.setAttribute("value", response[i].idConcentrado);
+					let optionTexto = document.createTextNode(response[i].IP);
+					option.appendChild(optionTexto);
+					document.getElementById('IPAct').appendChild(option);
 				}
 			}
-
-			var selectGerencia = document.getElementById('gerenciaA');
-			selectGerencia.removeAttribute('disabled');
-			for (var i = 1; i < selectGerencia.length; i++) {
-				if (selectGerencia.options[i].text == gerenciaBuscar) {
-					selectGerencia.selectedIndex = i;
-				}
-			}
-
-			document.getElementById("idUC").value = response.idUsuarioConagua;
-			document.getElementById("idEmC").value = response.idEmpleado;
-			document.getElementById("idPer").value = response.idPersona;
-
-			$("#emailA").attr("readonly", false);
-			$("#usuarioA").attr("readonly", false);
-			$("#idEmpleadoA").attr("readonly", false);
-			$("#curpA").attr("readonly", false);
-			$("#nombreCompletoA").attr("readonly", false);
 		}
 	});
-
-	document.getElementById("botonesActualizar").style.display = "block";*/
 });
+
+let IPActEncontradarever, nodoRedIPActrever, vlanIPActrever, puertoIPActrever, switchIPActrever, rackIPActrever, comentarioIPActrever, nombreUserActrever;
+$('#IPAct').on('change', function (e) {
+	let valorIP = document.getElementById('IPAct').value;
+
+	for (let i = 0; i < ipsParaActualizar.length; i++) {
+		if (ipsParaActualizar[i].idConcentrado == valorIP) {
+			IPActEncontradarever = document.getElementById("IPActEncontrada").value = ipsParaActualizar[i].IP;
+			nodoRedIPActrever = document.getElementById("nodoRedIPAct").value = ipsParaActualizar[i].Nodo_red;
+			vlanIPActrever = document.getElementById("vlanIPAct").value = ipsParaActualizar[i].VLAN;
+			puertoIPActrever = document.getElementById("puertoIPAct").value = ipsParaActualizar[i].Puerto_Switch;
+			switchIPActrever = document.getElementById("switchIPAct").value = ipsParaActualizar[i].Switch;
+			rackIPActrever = document.getElementById("rackIPAct").value = ipsParaActualizar[i].Rack;
+			comentarioIPActrever = document.getElementById("comentarioIPAct").value = ipsParaActualizar[i].Comentario;
+
+			/*
+			if (ipsParaActualizar[i].idUsuario != null && IPActEncontradarever.search("Área: ") == -1) {
+				document.getElementById("btnExtraUserAct").style.display = "block";
+			} else {
+				document.getElementById("btnExtraUserAdd").style.display = "none";
+			}
+
+			if (ipsParaActualizar[i].equipoExt != null) {
+				document.getElementById("btnExtraEquipoAct").style.display = "block";
+			} else {
+				document.getElementById("btnExtraEquipoAdd").style.display = "none";
+			}*/
+
+			document.getElementById("btnExtraUserAct").style.display = "block";
+			document.getElementById("btnExtraEquipoAct").style.display = "block";
+
+			document.getElementById('nombreUserAct').value = ipsParaActualizar[i].idUsuario;
+			document.getElementById('hostEquipoIpAct').value = ipsParaActualizar[i].equipoExt;
+		}
+	}
+
+	document.getElementById("botonesActualizarIP").style.display = "block";
+});
+
+function limpiarActualizarIP() {
+	document.getElementById("IPActEncontrada").value = '';
+	document.getElementById("nodoRedIPAct").value = '';
+	document.getElementById("vlanIPAct").value = '';
+	document.getElementById("puertoIPAct").value = '';
+	document.getElementById("switchIPAct").value = '';
+	document.getElementById("rackIPAct").value = '';
+	document.getElementById("comentarioIPAct").value = '';
+	document.getElementById("IPActEncontradaPrint").value = '';
+	document.getElementById("nodoRedIPActPrint").value = '';
+	document.getElementById("vlanIPActPrint").value = '';
+	document.getElementById("puertoIPActPrint").value = '';
+	document.getElementById("switchIPActPrint").value = '';
+	document.getElementById("rackIPActPrint").value = '';
+	document.getElementById("comentarioIPActPrint").value = '';
+	document.getElementById("botonesActualizarIP").style.display = "none";
+	document.getElementById("botonesActualizarIPPrint").style.display = "none";
+	document.getElementById("btnExtraUserAct").style.display = "none";
+	document.getElementById("btnExtraEquipoAct").style.display = "none";
+	document.getElementById("btnExtraUserAdd").style.display = "none";
+	document.getElementById("btnExtraEquipoAdd").style.display = "none";
+}
+
+function revertirActualizarIP() {
+	document.getElementById("IPActEncontrada").value = IPActEncontradarever;
+	document.getElementById("nodoRedIPAct").value = nodoRedIPActrever;
+	document.getElementById("vlanIPAct").value = vlanIPActrever;
+	document.getElementById("puertoIPAct").value = puertoIPActrever;
+	document.getElementById("switchIPAct").value = switchIPActrever;
+	document.getElementById("rackIPAct").value = rackIPActrever;
+	document.getElementById("comentarioIPAct").value = comentarioIPActrever;
+}
+
+function actualizarIPBD() {
+	let IPActEncontrada = document.getElementById("IPActEncontrada").value;
+	let nodoRedIPAct = document.getElementById("nodoRedIPAct").value;
+	let vlanIPAct = document.getElementById("vlanIPAct").value;
+	let puertoIPAct = document.getElementById("puertoIPAct").value;
+	let switchIPAct = document.getElementById("switchIPAct").value;
+	let rackIPAct = document.getElementById("rackIPAct").value;
+	let comentarioIPAct = document.getElementById("comentarioIPAct").value;
+	let nombreUserAct = document.getElementById("nombreUserAct").value;
+	let hostEquipoIpAct = document.getElementById("hostEquipoIpAct").value;
+	let idConcentradoAct = document.getElementById("idConcentradoAct").value;
+
+	if (nombreUserAct == "") {
+		Swal.fire({
+			icon: 'error',
+			title: 'Tiene que seleccionar un usuario.',
+		})
+	} else if (hostEquipoIpAct == "") {
+		Swal.fire({
+			icon: 'error',
+			title: 'Tiene que seleccionar un equipo.',
+		})
+	} else if (IPActEncontrada == "" || nodoRedIPAct == "" || puertoIPAct.length <= 7 || switchIPAct == "") {
+		Swal.fire({
+			icon: 'error',
+			title: 'Tiene que llenar toda la información de red.',
+		})
+	} else {
+		Swal.fire({
+			title: '¿Estás seguro de actualizar la IP? ',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Guardar',
+			cancelButtonText: 'Cancelar'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				params = {
+					"IP": IPActEncontrada,
+					"Nodo_red": nodoRedIPAct,
+					"equipoExt": hostEquipoIpAct,
+					"idUsuario": nombreUserAct,
+					"VLAN": vlanIPAct,
+					"Puerto_Switch": puertoIPAct,
+					"Switch": switchIPAct,
+					"Rack": rackIPAct,
+					"Comentario": comentarioIPAct,
+					"idConcentrado": idConcentradoAct
+				}
+				params = JSON.stringify(params);
+				console.log(params);
+
+				$.ajax({
+					url: 'http://172.29.60.126/SIT/apiSIT/api/concentrado/update.php',
+					type: 'POST',
+					data: params,
+					async: false,
+					contentType: 'application/json',
+					dataType: 'text',
+					success: function (respuesta) {
+						if (respuesta == "IP actualizada con exito.") {
+							paramsBitacora = {
+								"idUsuario": UsuarioEditor,
+								"IPConexion": IPVisitante,
+								"TipoOperacion": 10
+							}
+
+							paramsBitacora = JSON.stringify(paramsBitacora);
+
+							$.ajax({
+								url: 'http://172.29.60.126/SIT/apiSIT/api/bitacora/create.php',
+								type: 'POST',
+								data: paramsBitacora,
+								async: false,
+								contentType: 'application/json',
+								dataType: 'text'
+							});
+
+							Swal.fire({
+								title: 'IP actualizada con éxito',
+								icon: 'success'
+							}).then(function () {
+								location.reload(true);
+							});
+						} else {
+							Swal.fire({
+								icon: 'error',
+								title: 'No es posible completar la operación, intentarlo mas tarde.',
+							})
+							return false;
+						}
+					},
+					error: function (error) {
+						Swal.fire({
+							icon: 'error',
+							title: 'No es posible completar la operación, intentarlo mas tarde.',
+						})
+						alert("No es posible completar la operación, intentarlo mas tarde.");
+						return false;
+					}
+				});
+			}
+		})
+	}
+}
+
+function checkEditUserIp() {
+	/*switch (opcion) {
+		case 1:*/
+	if ($('#ActUserYes').prop('checked')) {
+		document.getElementById("nombreUserActDiv").style.display = "block";
+	} else {
+		document.getElementById("nombreUserActDiv").style.display = "none";
+	}/*
+			break;
+		case 2:
+			if ($('#ActUserYes').prop('checked')) {
+				document.getElementById("nombreUserActDiv").style.display = "block";
+			} else {
+				document.getElementById("nombreUserActDiv").style.display = "none";
+			}
+			break;
+		default:
+			break;
+	}*/
+}
+
+function checkEditPCIp() {
+	switch (opcion) {
+		case 1:
+			if ($('#ActEquipoYes').prop('checked')) {
+				document.getElementById("hostEquipoIpActDiv").style.display = "block";
+			} else {
+				document.getElementById("hostEquipoIpActDiv").style.display = "none";
+			} break;
+		case 2:
+			if ($('#ActUserYes').prop('checked')) {
+				document.getElementById("hostEquipoIpActPrint").style.display = "block";
+			} else {
+				document.getElementById("hostEquipoIpActPrint").style.display = "none";
+			}
+			break;
+		default:
+			break;
+	}
+}
+
+$('#impresoraNameAct').on('change', function (e) {
+	limpiarActualizarIP();
+
+	let valorBuscar = document.getElementById('impresoraNameAct').value;
+
+	$.ajax({
+		type: "POST",
+		url: "http://172.29.60.126/SIT/apiSIT/api/concentrado/buscarIPEdit.php?Comentario=" + valorBuscar + "",
+		success: function (response) {
+			if (response.length == 1) {
+				console.log(response);
+				document.getElementById("IPActPadrePrint").style.display = "none";
+				IPActEncontradareverPrint = document.getElementById("IPActEncontradaPrint").value = response[0].IP;
+				nodoRedIPActreverPrint = document.getElementById("nodoRedIPActPrint").value = response[0].Nodo_red;
+				vlanIPActreverPrint = document.getElementById("vlanIPActPrint").value = response[0].VLAN;
+				puertoIPActreverPrint = document.getElementById("puertoIPActPrint").value = response[0].Puerto_Switch;
+				switchIPActreverPrint = document.getElementById("switchIPActPrint").value = response[0].Switch;
+				rackIPActreverPrint = document.getElementById("rackIPActPrint").value = response[0].Rack;
+				comentarioIPActreverPrint = document.getElementById("comentarioIPActPrint").value = response[0].Comentario;
+				idConcentradoActPrint = document.getElementById("idConcentradoActPrint").value = response[0].idConcentrado;
+
+				document.getElementById("botonesActualizarIPPrint").style.display = "block";
+				document.getElementById("btnExtraEquipoAct").style.display = "block";
+				/*
+			if (response[0].idUsuario != null && IPActEncontradarever.search("Área: ") == -1) {
+				document.getElementById("btnExtraUserAct").style.display = "block";
+			} else {
+				document.getElementById("btnExtraUserAdd").style.display = "none";
+			}
+
+			if (response[0].equipoExt != null) {
+				document.getElementById("btnExtraEquipoAct").style.display = "block";
+			} else {
+				document.getElementById("btnExtraEquipoAdd").style.display = "none";
+			}
+*/
+				document.getElementById('hostEquipoIpActPrint').value = response[0].equipoExt;
+
+			} else {
+				document.getElementById("IPActPadrePrint").style.display = "block";
+				ipsParaActualizar = response;
+				$("#IPAcPrintt").empty();
+
+				let optionVacia = document.createElement("option");
+				optionVacia.setAttribute("value", "");
+				let optionVaciaTexto = document.createTextNode("Seleccione:");
+				optionVacia.appendChild(optionVaciaTexto);
+				document.getElementById('IPAcPrintt').appendChild(optionVacia);
+
+				for (let i = 0; i < response.length; i++) {
+					let option = document.createElement("option");
+					option.setAttribute("value", response[i].idConcentrado);
+					let optionTexto = document.createTextNode(response[i].IP);
+					option.appendChild(optionTexto);
+					document.getElementById('IPAcPrintt').appendChild(option);
+				}
+			}
+		}
+	});
+});
+
+let IPActEncontradareverPrint, nodoRedIPActreverPrint, vlanIPActreverPrint, puertoIPActreverPrint, switchIPActreverPrint, rackIPActreverPrint, comentarioIPActreverPrint;
+$('#IPAcPrintt').on('change', function (e) {
+	let valorIP = document.getElementById('IPAcPrintt').value;
+
+	for (let i = 0; i < ipsParaActualizar.length; i++) {
+		if (ipsParaActualizar[i].idConcentrado == valorIP) {
+			IPActEncontradareverPrint = document.getElementById("IPActEncontradaPrint").value = ipsParaActualizar[i].IP;
+			nodoRedIPActreverPrint = document.getElementById("nodoRedIPActPrint").value = ipsParaActualizar[i].Nodo_red;
+			vlanIPActreverPrint = document.getElementById("vlanIPActPrint").value = ipsParaActualizar[i].VLAN;
+			puertoIPActreverPrint = document.getElementById("puertoIPActPrint").value = ipsParaActualizar[i].Puerto_Switch;
+			switchIPActreverPrint = document.getElementById("switchIPActPrint").value = ipsParaActualizar[i].Switch;
+			rackIPActreverPrint = document.getElementById("rackIPActPrint").value = ipsParaActualizar[i].Rack;
+			comentarioIPActreverPrint = document.getElementById("comentarioIPActPrint").value = ipsParaActualizar[i].Comentario;
+
+			/*
+			if (ipsParaActualizar[i].idUsuario != null && IPActEncontradarever.search("Área: ") == -1) {
+				document.getElementById("btnExtraUserAct").style.display = "block";
+			} else {
+				document.getElementById("btnExtraUserAdd").style.display = "none";
+			}
+
+			if (ipsParaActualizar[i].equipoExt != null) {
+				document.getElementById("btnExtraEquipoAct").style.display = "block";
+			} else {
+				document.getElementById("btnExtraEquipoAdd").style.display = "none";
+			}*/
+
+			document.getElementById("btnExtraEquipoAct").style.display = "block";
+
+			document.getElementById('hostEquipoIpActPrint').value = ipsParaActualizar[i].equipoExt;
+		}
+	}
+
+	document.getElementById("botonesActualizarIPPrint").style.display = "block";
+});
+
+/* IP Actualizar */

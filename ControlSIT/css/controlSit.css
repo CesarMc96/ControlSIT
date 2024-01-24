@@ -12,7 +12,9 @@
     cursor: pointer;
 }
 
-div:where(.swal2-container).swal2-top, div:where(.swal2-container).swal2-center, div:where(.swal2-container).swal2-bottom {
+div:where(.swal2-container).swal2-top,
+div:where(.swal2-container).swal2-center,
+div:where(.swal2-container).swal2-bottom {
     z-index: 99999;
 }
 
@@ -50,4 +52,17 @@ div:where(.swal2-container).swal2-top, div:where(.swal2-container).swal2-center,
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #444;
     line-height: revert;
+}
+
+#IPVisitante, #IDUsuarioEditor {
+    display: none;
+}
+
+#logerror {
+    color: red;
+    text-align: center;
+}
+
+#mdlBuscarUsuario {
+    display: none;
 }
