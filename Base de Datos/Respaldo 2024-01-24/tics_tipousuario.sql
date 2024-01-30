@@ -18,28 +18,28 @@ USE `tics`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tipooperacion`
+-- Table structure for table `tipousuario`
 --
 
-DROP TABLE IF EXISTS `tipooperacion`;
+DROP TABLE IF EXISTS `tipousuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tipooperacion` (
-  `idTipoOperacion` int NOT NULL AUTO_INCREMENT,
-  `Nombre_TipoOperacion` varchar(45) NOT NULL,
-  PRIMARY KEY (`idTipoOperacion`),
-  UNIQUE KEY `Nombre_TipoOperacion_UNIQUE` (`Nombre_TipoOperacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `tipousuario` (
+  `idTipoUsuario` int NOT NULL AUTO_INCREMENT,
+  `NombreTipoUsuario` varchar(45) NOT NULL,
+  PRIMARY KEY (`idTipoUsuario`),
+  UNIQUE KEY `NombreTipoUsuario_UNIQUE` (`NombreTipoUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tipooperacion`
+-- Dumping data for table `tipousuario`
 --
 
-LOCK TABLES `tipooperacion` WRITE;
-/*!40000 ALTER TABLE `tipooperacion` DISABLE KEYS */;
-INSERT INTO `tipooperacion` VALUES (5,'Alta de Equipo'),(8,'Alta de IP'),(2,'Alta de Usuario'),(6,'Baja de Equipo'),(9,'Baja de IP'),(3,'Baja de Usuario'),(12,'Cambiar de Contraseña'),(1,'Inicio de Sesion'),(7,'Update de Equipo'),(11,'Update de Extension'),(10,'Update de IP'),(4,'Update de Usuario');
-/*!40000 ALTER TABLE `tipooperacion` ENABLE KEYS */;
+LOCK TABLES `tipousuario` WRITE;
+/*!40000 ALTER TABLE `tipousuario` DISABLE KEYS */;
+INSERT INTO `tipousuario` VALUES (1,'Administrador'),(3,'Consultor'),(2,'Editor');
+/*!40000 ALTER TABLE `tipousuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-24 13:48:33
+-- Dump completed on 2024-01-30 14:13:48

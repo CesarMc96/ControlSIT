@@ -18,28 +18,29 @@ USE `tics`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `area`
+-- Table structure for table `datosextrasdispositivo`
 --
 
-DROP TABLE IF EXISTS `area`;
+DROP TABLE IF EXISTS `datosextrasdispositivo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `area` (
-  `idArea` int NOT NULL AUTO_INCREMENT,
-  `NombreArea` varchar(250) NOT NULL,
-  PRIMARY KEY (`idArea`),
-  UNIQUE KEY `NombreArea_UNIQUE` (`NombreArea`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `datosextrasdispositivo` (
+  `idDatosDispositivo` int NOT NULL AUTO_INCREMENT,
+  `Marca` varchar(45) NOT NULL,
+  `Modelo` varchar(45) NOT NULL,
+  PRIMARY KEY (`idDatosDispositivo`),
+  UNIQUE KEY `Modelo_UNIQUE` (`Modelo`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `area`
+-- Dumping data for table `datosextrasdispositivo`
 --
 
-LOCK TABLES `area` WRITE;
-/*!40000 ALTER TABLE `area` DISABLE KEYS */;
-INSERT INTO `area` VALUES (4,'COORDINACIÓN GENERAL DEL SERVICIO METEOROLÓGICO NACIONAL'),(5,'GERENCIA DE METEOROLOGIA Y CLIMATOLOGIA'),(6,'GERENCIA DE REDES DE OBSERVACIÓN Y TELEMÁTICA'),(7,'JEFATURA DE PROYECTO \"A\" DE ADMINISTRACIÓN'),(17,'SUBGERENCIA DE APOYO TÉCNICO Y ADMINISTRATIVO'),(11,'SUBGERENCIA DE CLIMATOLOGÍA Y SERVICIOS CLIMÁTICOS'),(12,'SUBGERENCIA DE INFORMÁTICA Y TELECOMUNICACIONES'),(1,'SUBGERENCIA DE MONITOREO ATMOSFÉRICO AMBIENTAL'),(14,'SUBGERENCIA DE PRONÓSTICO METEOROLÓGICO'),(15,'SUBGERENCIA DE REDES DE OBSERVACIÓN');
-/*!40000 ALTER TABLE `area` ENABLE KEYS */;
+LOCK TABLES `datosextrasdispositivo` WRITE;
+/*!40000 ALTER TABLE `datosextrasdispositivo` DISABLE KEYS */;
+INSERT INTO `datosextrasdispositivo` VALUES (1,'LENOVO','V530s'),(2,'LENOVO','ThinkStation P330 Tower Gen 2'),(3,'LENOVO','ThinkSystem ST550'),(4,'LENOVO','ThinPad L490'),(5,'EPSON','PowerLite W05+'),(6,'HP','ScanJet Pro2000 s2'),(7,'HP','ScanJet Pro4500 fn1'),(8,'HP','Z6 G4'),(10,'HP','Z2 G4'),(11,'EPSON','SureColor T5470'),(12,'APPLE','IMAC 21.5'),(13,'HP','LaserJet MFP E72535'),(14,'HP','408dn'),(15,'HP','MFP E57540'),(16,'HP','Pro M454dw'),(17,'HP','MFP M430'),(18,'HP','MFP E77822'),(19,'HUAWEI','eSpace 7910'),(20,'HUAWEI','eSpace 7950'),(21,'HUAWEI','eSpace 8950');
+/*!40000 ALTER TABLE `datosextrasdispositivo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-24 13:48:34
+-- Dump completed on 2024-01-30 14:13:47

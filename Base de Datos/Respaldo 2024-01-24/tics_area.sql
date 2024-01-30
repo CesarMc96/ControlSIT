@@ -18,28 +18,28 @@ USE `tics`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tipousuario`
+-- Table structure for table `area`
 --
 
-DROP TABLE IF EXISTS `tipousuario`;
+DROP TABLE IF EXISTS `area`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tipousuario` (
-  `idTipoUsuario` int NOT NULL AUTO_INCREMENT,
-  `NombreTipoUsuario` varchar(45) NOT NULL,
-  PRIMARY KEY (`idTipoUsuario`),
-  UNIQUE KEY `NombreTipoUsuario_UNIQUE` (`NombreTipoUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `area` (
+  `idArea` int NOT NULL AUTO_INCREMENT,
+  `NombreArea` varchar(250) NOT NULL,
+  PRIMARY KEY (`idArea`),
+  UNIQUE KEY `NombreArea_UNIQUE` (`NombreArea`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tipousuario`
+-- Dumping data for table `area`
 --
 
-LOCK TABLES `tipousuario` WRITE;
-/*!40000 ALTER TABLE `tipousuario` DISABLE KEYS */;
-INSERT INTO `tipousuario` VALUES (1,'Administrador'),(3,'Consultor'),(2,'Editor');
-/*!40000 ALTER TABLE `tipousuario` ENABLE KEYS */;
+LOCK TABLES `area` WRITE;
+/*!40000 ALTER TABLE `area` DISABLE KEYS */;
+INSERT INTO `area` VALUES (4,'COORDINACIÓN GENERAL DEL SERVICIO METEOROLÓGICO NACIONAL'),(5,'GERENCIA DE METEOROLOGIA Y CLIMATOLOGIA'),(6,'GERENCIA DE REDES DE OBSERVACIÓN Y TELEMÁTICA'),(7,'JEFATURA DE PROYECTO \"A\" DE ADMINISTRACIÓN'),(17,'SUBGERENCIA DE APOYO TÉCNICO Y ADMINISTRATIVO'),(11,'SUBGERENCIA DE CLIMATOLOGÍA Y SERVICIOS CLIMÁTICOS'),(12,'SUBGERENCIA DE INFORMÁTICA Y TELECOMUNICACIONES'),(1,'SUBGERENCIA DE MONITOREO ATMOSFÉRICO AMBIENTAL'),(14,'SUBGERENCIA DE PRONÓSTICO METEOROLÓGICO'),(15,'SUBGERENCIA DE REDES DE OBSERVACIÓN');
+/*!40000 ALTER TABLE `area` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-24 13:48:34
+-- Dump completed on 2024-01-30 14:13:48
